@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import theme from '../../styles/theme';
 
-const { colors, fontSizes } = theme;
+const { colors } = theme;
 
 export const StyledContainer = styled.aside`
   display: flex;
@@ -31,9 +32,6 @@ export const StyledLink = styled(Link)`
   &:hover,
   &:focus,
   &:active {
-    /* border-left-width: 12px;
-    border-left-style: solid;
-    border-left-color: ${colors.teal}; */
     background-color: ${colors.transparentGray};
     color: ${colors.white};
   }
