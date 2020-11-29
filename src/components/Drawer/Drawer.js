@@ -1,10 +1,11 @@
 import React from 'react'
+import * as Styles from './DrawerStyles';
 
 function Drawer() {
     return (
-        <div>
-            
-        </div>
+        <Styles.StyledContainer>
+            Drawer
+        </Styles.StyledContainer>
     )
 }
 
