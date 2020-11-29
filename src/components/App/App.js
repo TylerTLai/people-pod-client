@@ -1,5 +1,5 @@
-import Drawer from '../Drawer/Drawer';
 import { Route, Switch } from 'react-router-dom';
+
 import Home from '../../pages/Home';
 
 function App() {
