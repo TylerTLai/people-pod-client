@@ -22,6 +22,11 @@ export const StyledGroupHeader = styled.div`
   align-items: center;
 `;
 
+export const StyledGroupTitle = styled.h3`
+  color: ${colors.offWhite2};
+  margin-left: 2rem;
+`;
+
 export const StyledLink = styled(Link)`
   color: ${colors.offWhite};
   text-decoration: none;
@@ -37,3 +42,21 @@ export const StyledLink = styled(Link)`
     color: ${colors.white};
   }
 `;
+
+export const featherIconUsersStyles = {
+  verticalAlign: 'middle',
+  color: `${colors.white}`,
+  marginRight: '1.3rem',
+};
+
+export const featherIconHeartStyles = {
+  verticalAlign: 'middle',
+  color: `${colors.white}`,
+  marginRight: '1.3rem',
+};
+
+export const featherIconPlusCicleStyles = {
+  verticalAlign: 'middle',
+  marginLeft: '6rem',
+};
+
