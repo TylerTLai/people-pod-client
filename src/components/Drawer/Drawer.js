@@ -1,7 +1,11 @@
 import React from 'react';
+import FeatherIcon from 'feather-icons-react';
 
 import * as Styles from './DrawerStyles';
-import FeatherIcon from 'feather-icons-react';
+import { StyledDivider } from '../../styles/Divider/Divider';
+import theme from '../../styles/theme';
+
+const { colors } = theme;
 
 function Drawer() {
   return (
@@ -32,6 +36,11 @@ function Drawer() {
         />
         Favorite
       </Styles.StyledLink>
+      <StyledDivider
+        margin="1rem 0"
+        backgroundColor={colors.gray}
+        color={colors.gray}
+      />
     </Styles.StyledContainer>
   );
 }
