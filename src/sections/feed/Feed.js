@@ -1,6 +1,6 @@
 import React from 'react'
 
-function PeopleList() {
+function Feed() {
     return (
         <div>
             
@@ -8,4 +8,4 @@ function PeopleList() {
     )
 }
 
-export default PeopleList
+export default Feed
