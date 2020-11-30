@@ -56,6 +56,6 @@ export const StyledLocation = styled.p`
   color: ${colors.spunPearl};
 `;
 
-export const StyledNotes = styled.p`
+export const StyledNote = styled.p`
   color: ${colors.gray};
 `;
