@@ -3,11 +3,11 @@ import React, { useState } from 'react';
 import PersonItem from '../PersonItem/PersonItem';
 import * as Styles from './PeopleListStyles';
 
-function PeopleList() {
+function PeopleList({ setModalInfo }) {
   const [people, setPeople] = useState(['a', 'b', 'c', 'd', 'e']);
 
   const ppl = people.map((person) => {
-    return <PersonItem name={person} />;
+    return <PersonItem name={person} setModalInfo={setModalInfo} />;
   });
 
   return <Styles.StyledContainer>{ppl}</Styles.StyledContainer>;

@@ -25,7 +25,7 @@ function App() {
           <Modal modalInfo={modalInfo} setModalInfo={setModalInfo} />
           <Switch>
             <Route exact path="/">
-              <Home />
+              <Home setModalInfo={setModalInfo} />
             </Route>
           </Switch>
         </div>

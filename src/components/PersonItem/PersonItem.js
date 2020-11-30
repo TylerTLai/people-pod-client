@@ -4,7 +4,15 @@ import { Heart, Edit, Trash } from 'react-feather';
 import * as Styles from './PersonItemStyles';
 import { StyledButton } from '../../styles/Button/Button';
 
-function PersonItem() {
+function PersonItem({ setModalInfo }) {
+  // const showForm = (person) => {
+  //   setModalInfo((prevState) => ({
+  //     show: !prevState.show,
+  //     modal: 'AddPerson',
+  //     person,
+  //   }));
+  // };
+
   return (
     <Styles.StyledLink>
       <Styles.StyledContainer>

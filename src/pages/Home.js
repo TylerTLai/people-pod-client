@@ -1,12 +1,12 @@
-import React from 'react'
-import Feed from '../sections/feed/Feed'
+import React from 'react';
+import Feed from '../sections/feed/Feed';
 
-function Home() {
-    return (
-        <div>
-            <Feed />
-        </div>
-    )
+function Home({ setModalInfo }) {
+  return (
+    <div>
+      <Feed setModalInfo={setModalInfo} />
+    </div>
+  );
 }
 
-export default Home
+export default Home;

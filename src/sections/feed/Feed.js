@@ -6,15 +6,15 @@ import { StyledButton } from '../../styles/Button/Button';
 import { StyledDivider } from '../../styles/Divider/Divider';
 import * as Styles from './FeedStyles';
 
-function Feed() {
+function Feed({ setModalInfo }) {
   return (
-    <Layout>
+    <Layout setModalInfo={setModalInfo}>
       <Styles.StyledContainer>
         <Styles.StyledButtonsContainer>
           <StyledButton padding={'.7rem 1rem'}>Add New Person</StyledButton>
         </Styles.StyledButtonsContainer>
         <StyledDivider margin="1.4rem 0 0 0" height="1px" />
-        <PeopleList />
+        <PeopleList setModalInfo={setModalInfo} />
       </Styles.StyledContainer>
     </Layout>
   );
