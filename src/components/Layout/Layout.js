@@ -10,7 +10,10 @@ function Layout({ children }) {
       <div className="header">
         <Header />
       </div>
-      <div className="main">{children}</div>
+      <div className="main">
+      {/* Feed uses Layout as parent*/}
+      {children}
+      </div>
       <div className="sidebar">
         <Sidebar />
       </div>

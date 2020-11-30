@@ -14,6 +14,7 @@ function Feed({ setModalInfo }) {
           <StyledButton padding={'.7rem 1rem'}>Add New Person</StyledButton>
         </Styles.StyledButtonsContainer>
         <StyledDivider margin="1.4rem 0 0 0" height="1px" />
+        {/* list of people */}
         <PeopleList setModalInfo={setModalInfo} />
       </Styles.StyledContainer>
     </Layout>
