@@ -59,3 +59,32 @@ export const StyledLocation = styled.p`
 export const StyledNote = styled.p`
   color: ${colors.gray};
 `;
+
+export const StyledButtonText = styled.span`
+  vertical-align: bottom;
+  color: ${colors.spunPearl};
+`;
+
+export const featherIconHeartFilledStyles = {
+  fill: `${colors.red}`,
+  color: `${colors.red}`,
+  verticalAlign: 'bottom',
+  marginRight: '.5rem',
+};
+
+export const featherIconHeartNotFilledStyles = {
+  verticalAlign: 'bottom',
+  marginRight: '.5rem',
+};
+
+export const featherIconEditStyles = {
+  verticalAlign: 'bottom',
+  marginRight: '.5rem',
+  color: `${colors.spunPearl}`,
+};
+
+export const featherIconDeleteStyles = {
+   verticalAlign: 'bottom',
+  marginRight: '.5rem',
+  color: `${colors.spunPearl}`,
+};

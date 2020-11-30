@@ -27,7 +27,12 @@ function PersonItem() {
             border="none"
             background="none"
           >
-            favorite
+            <FeatherIcon
+              size={16}
+              icon="heart"
+              style={Styles.featherIconHeartFilledStyles}
+            />
+            <Styles.StyledButtonText>Favorite</Styles.StyledButtonText>
           </StyledButton>
           <StyledButton
             margin=".2rem"
@@ -37,7 +42,12 @@ function PersonItem() {
             border="none"
             background="none"
           >
-            edit
+            <FeatherIcon
+              size={16}
+              icon="edit"
+              style={Styles.featherIconEditStyles}
+            />
+            <Styles.StyledButtonText>Edit</Styles.StyledButtonText>
           </StyledButton>
           <StyledButton
             margin=".2rem"
@@ -47,7 +57,12 @@ function PersonItem() {
             border="none"
             background="none"
           >
-            delete
+            <FeatherIcon
+              size={16}
+              icon="edit"
+              style={Styles.featherIconDeleteStyles}
+            />
+            <Styles.StyledButtonText>Delete</Styles.StyledButtonText>
           </StyledButton>
         </Styles.StyledButtonsArea>
       </Styles.StyledContainer>
