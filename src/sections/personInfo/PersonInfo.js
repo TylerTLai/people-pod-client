@@ -3,9 +3,7 @@ import axios from 'axios';
 
 function PersonInfo() {
   const handleClick = () => {
-    axios
-      .get("/")
-      .then((res) => console.log('from PersonInfo ', res));
+    axios.get('/api/people').then((res) => console.log('using axios ', res.data));
   };
 
   return (
