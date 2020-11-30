@@ -1,11 +1,18 @@
-import React from 'react'
+import React from 'react';
+import axios from 'axios';
 
 function PersonInfo() {
-    return (
-        <div>
-            
-        </div>
-    )
+  const handleClick = () => {
+    axios
+      .get("/")
+      .then((res) => console.log('from PersonInfo ', res));
+  };
+
+  return (
+    <div>
+      <button onClick={handleClick}>get people</button>
+    </div>
+  );
 }
 
-export default PersonInfo
+export default PersonInfo;

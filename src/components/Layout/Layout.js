@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Header from '../../sections/header/Header';
+import PersonInfo from '../../sections/personInfo/PersonInfo';
 import Sidebar from '../../sections/sidebar/Sidebar';
 import * as Styles from './LayoutStyles';
 
@@ -11,13 +12,15 @@ function Layout({ children }) {
         <Header />
       </div>
       <div className="main">
-      {/* Feed uses Layout as parent*/}
-      {children}
+        {/* Feed uses Layout as parent*/}
+        {children}
       </div>
       <div className="sidebar">
         <Sidebar />
       </div>
-      <div className="personInfo">person info</div>
+      <div className="personInfo">
+        <PersonInfo />
+      </div>
     </Styles.StyledContainer>
   );
 }
