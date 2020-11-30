@@ -1,5 +1,5 @@
 import React from 'react';
-import FeatherIcon from 'feather-icons-react';
+import { Heart, Edit, Trash } from 'react-feather';
 
 import * as Styles from './PersonItemStyles';
 import { StyledButton } from '../../styles/Button/Button';
@@ -27,11 +27,7 @@ function PersonItem() {
             border="none"
             background="none"
           >
-            <FeatherIcon
-              size={16}
-              icon="heart"
-              style={Styles.featherIconHeartFilledStyles}
-            />
+            <Heart size={16} style={Styles.featherIconHeartFilledStyles} />
             <Styles.StyledButtonText>Favorite</Styles.StyledButtonText>
           </StyledButton>
           <StyledButton
@@ -42,11 +38,7 @@ function PersonItem() {
             border="none"
             background="none"
           >
-            <FeatherIcon
-              size={16}
-              icon="edit"
-              style={Styles.featherIconEditStyles}
-            />
+            <Edit size={16} style={Styles.featherIconEditStyles} />
             <Styles.StyledButtonText>Edit</Styles.StyledButtonText>
           </StyledButton>
           <StyledButton
@@ -57,11 +49,7 @@ function PersonItem() {
             border="none"
             background="none"
           >
-            <FeatherIcon
-              size={16}
-              icon="edit"
-              style={Styles.featherIconDeleteStyles}
-            />
+            <Trash size={16} style={Styles.featherIconDeleteStyles} />
             <Styles.StyledButtonText>Delete</Styles.StyledButtonText>
           </StyledButton>
         </Styles.StyledButtonsArea>
