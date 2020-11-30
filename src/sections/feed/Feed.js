@@ -1,11 +1,11 @@
 import React from 'react';
 import Layout from '../../components/Layout/Layout';
-import PersonItem from '../../components/PersonItem/PersonItem';
+import PeopleList from '../../components/PeopleList/PeopleList';
 
 function Feed() {
   return (
     <Layout>
-      <PersonItem />
+      <PeopleList />
     </Layout>
   );
 }
