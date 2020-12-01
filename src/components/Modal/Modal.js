@@ -1,5 +1,7 @@
 import React from 'react';
 
+import AddGroupForm from '../Form/AddGroupForm';
+import AddPersonForm from '../Form/AddPersonForm';
 import { backdropVariants, modalVariants } from './ModalAnimations';
 import * as Styles from './ModalStyles';
 
