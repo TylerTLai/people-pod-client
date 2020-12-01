@@ -23,22 +23,26 @@ function Drawer({ getGroups, groups, getGroup, getPeople, setModalInfo }) {
   };
 
   // Make Links from groups
-  // const drawerLinks = groups.map((groupObj) => {
-  //   const groupSlug = groupObj.groupName.toLowerCase().replace(/\s/g, '');
+  const drawerLinks = groups.map((groupObj) => {
+    let groupSlug = '';
 
-  //   const content =
-  //     groupObj.groupName === 'Favorite' ? null : (
-  //       <Styles.StyledLink
-  //         to={'/group/' + groupSlug}
-  //         key={groupObj._id}
-  //         onClick={() => getGroup(groupObj)}
-  //       >
-  //         <Users size={16} style={Styles.featherIconUsersStyles} />
-  //         {groupObj.groupName}
-  //       </Styles.StyledLink>
-  //     );
-  //   return content;
-  // });
+    if (groupObj.groupName !== undefined) {
+      groupSlug = groupObj.groupName.toLowerCase().replace(/\s/g, '');
+    }
+
+    const content =
+      groupObj.groupName === 'Favorite' ? null : (
+        <Styles.StyledLink
+          to={'/group/' + groupSlug}
+          key={groupObj._id}
+          onClick={() => getGroup(groupObj)}
+        >
+          <Users size={16} style={Styles.featherIconUsersStyles} />
+          {groupObj.groupName}
+        </Styles.StyledLink>
+      );
+    return content;
+  });
 
   return (
     <Styles.StyledContainer>
@@ -70,8 +74,7 @@ function Drawer({ getGroups, groups, getGroup, getPeople, setModalInfo }) {
         backgroundColor={colors.gray}
         color={colors.gray}
       />
-      {/* // TODO: fix drawer links */}
-      <p>drawerLinks</p>
+      {drawerLinks}
     </Styles.StyledContainer>
   );
 }
