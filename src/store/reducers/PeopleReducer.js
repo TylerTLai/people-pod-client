@@ -1,4 +1,4 @@
-import {
+  import {
   ADD_PERSON,
   FILTER_PEOPLE,
   DELETE_PERSON,
@@ -20,7 +20,7 @@ const initialState = {
   error: {},
 };
 
-export default function (state = initialState, action) {
+function people (state = initialState, action) {
   switch (action.type) {
     case ADD_PERSON:
       return {
@@ -71,3 +71,5 @@ export default function (state = initialState, action) {
       return state;
   }
 }
+
+export default people

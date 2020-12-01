@@ -6,7 +6,7 @@ import { Heart, Edit, Trash } from 'react-feather';
 import * as Styles from './PersonItemStyles';
 import { deletePerson, getPerson } from '../../store/actions/personActions';
 import { StyledButton } from '../../styles/Button/Button';
-import { PERSON_ERROR } from '../../store/actions/personTypes';
+// import { PERSON_ERROR } from '../../store/actions/personTypes';
 
 function PersonItem({ deletePerson, getPerson, person, setModalInfo }) {
   useEffect(() => {
@@ -31,7 +31,7 @@ function PersonItem({ deletePerson, getPerson, person, setModalInfo }) {
   };
 
   return (
-    <Styles.StyledLink to={'/preson/' + person._id}>
+    <Styles.StyledLink to={'/person/' + person._id}>
       <Styles.StyledContainer>
         <Styles.StyledContentArea>
           <div>

@@ -7,7 +7,7 @@ const initialState = {
   error: {},
 };
 
-export default function (state = initialState, action) {
+function group (state = initialState, action) {
   switch (action.type) {
     case ADD_GROUP:
       return {
@@ -26,3 +26,5 @@ export default function (state = initialState, action) {
       return state;
   }
 }
+
+export default group

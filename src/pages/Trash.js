@@ -1,11 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 function Trash() {
-    return (
-        <div>
-            
-        </div>
-    )
+  return <div>Trash</div>;
 }
 
-export default Trash
+export default Trash;
