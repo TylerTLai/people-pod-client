@@ -34,6 +34,7 @@ function AddGroupForm({ setModalInfo, addGroup }) {
           placeholder="Enter group name"
           name="groupName"
           autoFocus
+          required
           ref={register}
         />
         <StyledButton type="submit">Done</StyledButton>
