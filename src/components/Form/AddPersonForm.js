@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import AsyncCreatableSelect from 'react-select/async-creatable';
 import { connect } from 'react-redux';
-import { XCircle } from 'react-feather';
 import { useForm } from 'react-hook-form';
+import { XCircle } from 'react-feather';
 
+import * as Styles from './AddPersonFormStyles';
 import { addGroup } from '../../store/actions/groupActions';
 import { addPerson, updatePerson } from '../../store/actions/personActions';
 import { StyledButton } from '../../styles/Button/Button';
-import * as Styles from './AddPersonFormStyles';
 import { getOptions } from '../../utils/AddPersonFormUtils';
 
 function AddPersonForm({

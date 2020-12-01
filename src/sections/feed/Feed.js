@@ -23,7 +23,7 @@ function Feed({ setModalInfo }) {
             <UserPlus size={16} style={Styles.featherIconUserPlusStyles} />
             <Styles.StyledButtonText>Add New Person</Styles.StyledButtonText>
           </StyledButton>
-          {/* // todo: add sort feature */}
+          {/* // TODO: add sort feature */}
           <StyledButton padding={`.2rem .7rem`} className="sort">
             <ChevronDown
               size={16}

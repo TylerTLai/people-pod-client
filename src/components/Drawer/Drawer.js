@@ -70,6 +70,7 @@ function Drawer({ getGroups, groups, getGroup, getPeople, setModalInfo }) {
         backgroundColor={colors.gray}
         color={colors.gray}
       />
+      {/* // TODO: fix drawer links */}
       <p>drawerLinks</p>
     </Styles.StyledContainer>
   );
