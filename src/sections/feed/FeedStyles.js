@@ -23,3 +23,16 @@ export const StyledButtonsContainer = styled.div`
     grid-area: sort;
   }
 `;
+
+export const StyledButtonText = styled.span`
+  vertical-align: middle;
+`;
+
+export const featherIconUserPlusStyles = {
+  verticalAlign: 'middle',
+  marginRight: '.5rem',
+};
+
+export const featherIconChevronDownStyles = {
+  verticalAlign: 'middle',
+};

@@ -1,13 +1,13 @@
 import React from 'react';
-import Layout from '../../components/Layout/Layout';
+import { UserPlus, ChevronDown } from 'react-feather';
 
+import Layout from '../../components/Layout/Layout';
 import PeopleList from '../../components/PeopleList/PeopleList';
 import { StyledButton } from '../../styles/Button/Button';
 import { StyledDivider } from '../../styles/Divider/Divider';
 import * as Styles from './FeedStyles';
 
 function Feed({ setModalInfo }) {
-  
   const handleAddPerson = () => {
     setModalInfo((prevState) => ({
       show: !prevState.show,
@@ -18,9 +18,17 @@ function Feed({ setModalInfo }) {
   return (
     <Layout setModalInfo={setModalInfo}>
       <Styles.StyledContainer>
-        <Styles.StyledButtonsContainer>
+        <Styles.StyledButtonsContainer className="addPerson">
           <StyledButton padding={'.7rem 1rem'} onClick={handleAddPerson}>
-            Add New Person
+            <UserPlus size={16} style={Styles.featherIconUserPlusStyles} />
+            <Styles.StyledButtonText>Add New Person</Styles.StyledButtonText>
+          </StyledButton>
+          {/* // todo: add sort feature */}
+          <StyledButton padding={`.2rem .7rem`} className="sort">
+            <ChevronDown
+              size={16}
+              style={Styles.featherIconChevronDownStyles}
+            />
           </StyledButton>
         </Styles.StyledButtonsContainer>
         <StyledDivider margin="1.4rem 0 0 0" height="1px" />
