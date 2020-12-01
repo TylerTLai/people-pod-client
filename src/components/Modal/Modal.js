@@ -15,12 +15,19 @@ function Modal({ modalInfo, setModalInfo }) {
         >
           <Styles.StyledContainer
             variants={modalVariants}
-            //   animate={
-            //     modalInfo.modal === 'AddPerson' ? 'visiblePerson' : 'visibleGroup'
-            //   }
+            animate={
+              modalInfo.modal === 'AddPerson' ? 'visiblePerson' : 'visibleGroup'
+            }
             exit="exit"
           >
-            Add Person Form
+            {modalInfo.modal === 'AddPerson' ? (
+              <AddPersonForm
+                person={modalInfo.person}
+                setShowModal={setModalInfo}
+              />
+            ) : (
+              <AddGroupForm setShowModal={setModalInfo} />
+            )}
           </Styles.StyledContainer>
         </Styles.StyledBackdrop>
       )}

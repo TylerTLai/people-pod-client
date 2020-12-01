@@ -7,11 +7,21 @@ import { StyledDivider } from '../../styles/Divider/Divider';
 import * as Styles from './FeedStyles';
 
 function Feed({ setModalInfo }) {
+  
+  const handleAddPerson = () => {
+    setModalInfo((prevState) => ({
+      show: !prevState.show,
+      modal: 'AddPerson',
+    }));
+  };
+
   return (
     <Layout setModalInfo={setModalInfo}>
       <Styles.StyledContainer>
         <Styles.StyledButtonsContainer>
-          <StyledButton padding={'.7rem 1rem'}>Add New Person</StyledButton>
+          <StyledButton padding={'.7rem 1rem'} onClick={handleAddPerson}>
+            Add New Person
+          </StyledButton>
         </Styles.StyledButtonsContainer>
         <StyledDivider margin="1.4rem 0 0 0" height="1px" />
         {/* list of people */}
