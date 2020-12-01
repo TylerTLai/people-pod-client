@@ -59,4 +59,3 @@ export const featherIconPlusCicleStyles = {
   verticalAlign: 'middle',
   marginLeft: '6rem',
 };
-

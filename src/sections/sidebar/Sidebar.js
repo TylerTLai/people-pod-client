@@ -1,8 +1,8 @@
 import React from 'react';
 import Drawer from '../../components/Drawer/Drawer';
 
-function Sidebar() {
-  return <Drawer />;
+function Sidebar({ setModalInfo }) {
+  return <Drawer setModalInfo={setModalInfo} />;
 }
 
 export default Sidebar;

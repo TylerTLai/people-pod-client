@@ -5,7 +5,7 @@ import PersonInfo from '../../sections/personInfo/PersonInfo';
 import Sidebar from '../../sections/sidebar/Sidebar';
 import * as Styles from './LayoutStyles';
 
-function Layout({ children }) {
+function Layout({ children, setModalInfo }) {
   return (
     <Styles.StyledContainer>
       <div className="header">
@@ -16,7 +16,7 @@ function Layout({ children }) {
         {children}
       </div>
       <div className="sidebar">
-        <Sidebar />
+        <Sidebar setModalInfo={setModalInfo} />
       </div>
       <div className="personInfo">
         <PersonInfo />
