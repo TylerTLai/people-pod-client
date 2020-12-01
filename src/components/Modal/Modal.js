@@ -25,10 +25,10 @@ function Modal({ modalInfo, setModalInfo }) {
             {modalInfo.modal === 'AddPerson' ? (
               <AddPersonForm
                 person={modalInfo.person}
-                setShowModal={setModalInfo}
+                setModalInfo={setModalInfo}
               />
             ) : (
-              <AddGroupForm setShowModal={setModalInfo} />
+              <AddGroupForm setModalInfo={setModalInfo} />
             )}
           </Styles.StyledContainer>
         </Styles.StyledBackdrop>
