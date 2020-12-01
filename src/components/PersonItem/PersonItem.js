@@ -16,7 +16,7 @@ function PersonItem({ deletePerson, getPerson, person, setModalInfo }) {
 
   const [fave, setFave] = useState(false);
 
-  // Favorite put request.
+  // Fav put request.
   const favoritePerson = (personId) => {
     axios
       .put('/api/people/favorite/' + personId)
