@@ -48,10 +48,17 @@ function people(state = initialState, action) {
       };
 
     case FILTER_PEOPLE:
+      const { term, people } = action.payload;
+      // Filter people by search term.
+      const filteredPeople = people.filter((person) => {
+        return (
+          person.fName.toLowerCase().includes(term.toLowerCase()) ||
+          person.lName.toLowerCase().includes(term.toLowerCase())
+        );
+      });
       return {
         ...state,
-        // people: [action.payload.people, ...state.people],
-        searchTerm: action.payload.term,
+        people: filteredPeople,
         loading: false,
       };
 
