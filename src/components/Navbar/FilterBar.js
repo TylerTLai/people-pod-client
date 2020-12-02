@@ -1,25 +1,30 @@
 import React from 'react';
-import { Search } from 'react-feather';
+import { connect } from 'react-redux';
+import { filterPeople } from '../../store/actions/personActions';
 
 import * as Styles from './FilterBarStyles';
-import { StyledButton } from '../../styles/Button/Button';
 
-function FilterBar() {
+function FilterBar({ filterPeople }) {
+  const handleChange = (e) => {
+    const term = e.target.value;
+    filterPeople(term);
+  };
+
   return (
     <Styles.StyledForm>
-      <Styles.StyledFilter type="text" placeholder="Search for a person" />
-      <StyledButton
-        type="submit"
-        style={{
-          padding: '0 .8rem',
-          borderLeft: 'none',
-          borderRadius: '3px 3px 3px 0',
-        }}
-      >
-        <Search size={16} />
-      </StyledButton>
+      <Styles.StyledFilter
+        type="text"
+        placeholder="Find a person..."
+        onChange={handleChange}
+      />
     </Styles.StyledForm>
   );
 }
 
-export default FilterBar;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    filterPeople: (term) => dispatch(filterPeople(term)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(FilterBar);
