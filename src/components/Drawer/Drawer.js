@@ -48,7 +48,7 @@ function Drawer({ getGroups, groups, getGroup, getPeople, setModalInfo }) {
     <Styles.StyledContainer>
       <Styles.StyledGroupHeader>
         <div>
-          <Styles.StyledGroupTitle>Groups</Styles.StyledGroupTitle>
+          <Styles.StyledGroupTitle>Pods</Styles.StyledGroupTitle>
         </div>
         <div>
           <PlusCircle
