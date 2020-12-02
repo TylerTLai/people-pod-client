@@ -1,9 +1,9 @@
-  import {
+import {
   ADD_PERSON,
   FILTER_PEOPLE,
   DELETE_PERSON,
   UPDATE_PERSON,
-  // FAV_PERSON,
+  FAV_PERSON,
   GET_PERSON,
   GET_PEOPLE,
   // GET_GROUP,
@@ -15,12 +15,13 @@
 const initialState = {
   people: [],
   person: null,
+  favorite: false,
   searchTerm: '',
   loading: true,
   error: {},
 };
 
-function people (state = initialState, action) {
+function people(state = initialState, action) {
   switch (action.type) {
     case ADD_PERSON:
       return {
@@ -54,9 +55,8 @@ function people (state = initialState, action) {
         loading: false,
       };
 
-    // case FAV_PERSON:
-    //   // console.log('from peopelreducer fav person ', action.payload)
-    //   return { ...state, favorite: action.payload, loading: false };
+    case FAV_PERSON:
+      return { ...state, favorite: action.payload, loading: false };
 
     case GET_PEOPLE:
       return { ...state, people: action.payload, loading: false };
@@ -72,4 +72,4 @@ function people (state = initialState, action) {
   }
 }
 
-export default people
+export default people;

@@ -84,7 +84,7 @@ export const featherIconEditStyles = {
 };
 
 export const featherIconDeleteStyles = {
-   verticalAlign: 'bottom',
+  verticalAlign: 'bottom',
   marginRight: '.5rem',
   color: `${colors.spunPearl}`,
 };
