@@ -9,7 +9,6 @@ import {
   favoritePerson,
 } from '../../store/actions/personActions';
 import { StyledButton } from '../../styles/Button/Button';
-// import { PERSON_ERROR } from '../../store/actions/personTypes';
 
 function PersonItem({
   deletePerson,
