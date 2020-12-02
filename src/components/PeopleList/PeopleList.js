@@ -11,7 +11,6 @@ function PeopleList({
   people,
   favorite,
   person,
-  searchTerm,
   setModalInfo,
 }) {
   const getPeopleBasedOnGroup = useCallback(() => {
@@ -28,14 +27,8 @@ function PeopleList({
     getPeopleBasedOnGroup();
   }, [group, person, favorite]);
 
-  // console.log('from peoplelist ', people);
-
-  const filteredPeople = people.filter((person) => {
-    return person.fName.indexOf(searchTerm.toLowerCase()) !== -1;
-  });
-
-  if (filteredPeople.length > 0) {
-    const listOfPeople = filteredPeople.map((person) => {
+  if (people.length > 0) {
+    const listOfPeople = people.map((person) => {
       return (
         <PersonItem
           person={person}
@@ -48,9 +41,13 @@ function PeopleList({
     return <Styles.StyledContainer>{listOfPeople}</Styles.StyledContainer>;
   } else {
     return (
-      <Styles.StyledContainer>
-        <p>No people in the pod. Click "Add New Person" to add a person.</p>
-      </Styles.StyledContainer>
+      <>
+        <h3>Oh, so lonely...</h3>
+        There are no people in your pod. Click <strong>
+          Add New Person
+        </strong>{' '}
+        to start adding people.
+      </>
     );
   }
 }
