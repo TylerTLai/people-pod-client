@@ -4,7 +4,7 @@ import {
   DELETE_PERSON,
   UPDATE_PERSON,
   FILTER_PEOPLE,
-  // FAV_PERSON,
+  FAV_PERSON,
   GET_PERSON,
   GET_PEOPLE,
   PERSON_ERROR,
@@ -15,9 +15,7 @@ import {
 export const getPerson = (id) => async (dispatch) => {
   // console.log('from getPerson action', id);
   try {
-    const res = await axios.get(
-      `/api/people/person/${id}`
-    );
+    const res = await axios.get(`/api/people/person/${id}`);
     // console.log(res.data);
     dispatch({
       type: GET_PERSON,
@@ -43,9 +41,7 @@ export const getPeople = (groupId) => async (dispatch) => {
       });
     } else {
       const groupSlug = '/' + groupId;
-      const res = await axios.get(
-        `/api/people/group${groupSlug}`
-      );
+      const res = await axios.get(`/api/people/group${groupSlug}`);
 
       dispatch({
         type: GET_PEOPLE,
@@ -101,10 +97,11 @@ export const updatePerson = (person, group, personId) => async (dispatch) => {
   // console.log('from update person ', group);
 
   try {
-    const res = await axios.put(
-      `/api/people/update/${personId}`,
-      { person, group, personId }
-    );
+    const res = await axios.put(`/api/people/update/${personId}`, {
+      person,
+      group,
+      personId,
+    });
     // console.log('updatePerson res from server ', res.data)
 
     dispatch({
@@ -127,6 +124,22 @@ export const filterPeople = (term) => async (dispatch) => {
     dispatch({
       type: FILTER_PEOPLE,
       payload: termPeople,
+    });
+  } catch (err) {
+    dispatch({
+      type: PERSON_ERROR,
+    });
+  }
+};
+
+// Favorite a person
+export const favoritePerson = (id) => async (dispatch) => {
+  try {
+    const res = await axios.put(`/api/people/favorite/${id}`);
+
+    dispatch({
+      type: FAV_PERSON,
+      payload: res.data.favorited,
     });
   } catch (err) {
     dispatch({
