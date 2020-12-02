@@ -9,6 +9,7 @@ function PeopleList({
   getPeople,
   group,
   people,
+  favorite,
   person,
   searchTerm,
   setModalInfo,
@@ -21,11 +22,11 @@ function PeopleList({
     } else {
       return getPeople(group._id);
     }
-  }, [group, people, person]);
+  }, [group, people, person, favorite]);
 
   useEffect(() => {
     getPeopleBasedOnGroup();
-  }, [group, person]);
+  }, [group, person, favorite]);
 
   // console.log('from peoplelist ', people);
 
@@ -55,9 +56,10 @@ function PeopleList({
 }
 
 const mapStateToProps = (state) => {
-  const { searchTerm, people, person } = state.people;
+  const { searchTerm, people, person, favorite } = state.people;
 
   return {
+    favorite,
     person,
     people,
     group: state.group.group,

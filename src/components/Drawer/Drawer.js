@@ -63,7 +63,7 @@ function Drawer({ getGroups, groups, getGroup, getPeople, setModalInfo }) {
         Everyone
       </Styles.StyledLink>
       <Styles.StyledLink
-        to="/group/favoirte"
+        to="/group/favorite"
         onClick={() => getGroup('favorite')}
       >
         <Heart size={16} style={Styles.featherIconHeartStyles} />

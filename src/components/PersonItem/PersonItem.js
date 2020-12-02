@@ -1,14 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { connect } from 'react-redux';
 import { Heart, Edit, Trash } from 'react-feather';
 
 import * as Styles from './PersonItemStyles';
-import { deletePerson, getPerson } from '../../store/actions/personActions';
+import {
+  deletePerson,
+  getPerson,
+  favoritePerson,
+} from '../../store/actions/personActions';
 import { StyledButton } from '../../styles/Button/Button';
 // import { PERSON_ERROR } from '../../store/actions/personTypes';
 
-function PersonItem({ deletePerson, getPerson, person, setModalInfo }) {
+function PersonItem({
+  deletePerson,
+  getPerson,
+  person,
+  setModalInfo,
+  favoritePerson,
+  favorite,
+}) {
   useEffect(() => {
     const alreadyFaved = person.group.some((el) => el.groupName === 'Favorite');
     setFave(alreadyFaved);
@@ -16,19 +26,17 @@ function PersonItem({ deletePerson, getPerson, person, setModalInfo }) {
 
   const [fave, setFave] = useState(false);
 
-  // Fav put request.
-  const favoritePerson = (personId) => {
-    axios
-      .put('/api/people/favorite/' + personId)
-      .then((res) => setFave(res.data.favorited));
-  };
-
   const showForm = (person) => {
     setModalInfo((prevState) => ({
       show: !prevState.show,
       modal: 'AddPerson',
       person,
     }));
+  };
+
+  const handleFavorite = () => {
+    favoritePerson(person._id);
+    setFave(favorite);
   };
 
   return (
@@ -61,13 +69,13 @@ function PersonItem({ deletePerson, getPerson, person, setModalInfo }) {
               <Heart
                 size={16}
                 style={Styles.featherIconHeartFilledStyles}
-                onClick={() => favoritePerson(person._id)}
+                onClick={handleFavorite}
               />
             ) : (
               <Heart
                 size={16}
                 style={Styles.featherIconHeartNotFilledStyles}
-                onClick={() => favoritePerson(person._id)}
+                onClick={handleFavorite}
               />
             )}
 
@@ -103,11 +111,18 @@ function PersonItem({ deletePerson, getPerson, person, setModalInfo }) {
   );
 }
 
+const mapStateToProps = (state) => {
+  return {
+    favorite: state.people.favorite,
+  };
+};
+
 const mapDispatchToProps = (dispatch) => {
   return {
+    favoritePerson: (personId) => dispatch(favoritePerson(personId)),
     getPerson: (personId) => dispatch(getPerson(personId)),
     deletePerson: (personId) => dispatch(deletePerson(personId)),
   };
 };
 
-export default connect(null, mapDispatchToProps)(PersonItem);
+export default connect(mapStateToProps, mapDispatchToProps)(PersonItem);
