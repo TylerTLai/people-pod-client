@@ -75,6 +75,7 @@ export const featherIconHeartFilledStyles = {
 export const featherIconHeartNotFilledStyles = {
   verticalAlign: 'bottom',
   marginRight: '.5rem',
+  color: `${colors.spunPearl}`,
 };
 
 export const featherIconEditStyles = {
