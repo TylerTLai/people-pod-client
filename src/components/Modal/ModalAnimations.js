@@ -35,6 +35,18 @@ export const modalVariants = {
       stiffness: 300,
     },
   },
+  visibleFileUpload: {
+    y: '30vh',
+    scale: 1,
+    opacity: 1,
+    transition: {
+      duration: 0.1,
+      type: 'spring',
+      damping: 10,
+      mass: 0.1,
+      stiffness: 300,
+    },
+  },
   exit: {
     scale: 0,
     opacity: 0,

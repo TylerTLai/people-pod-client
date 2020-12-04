@@ -57,5 +57,7 @@ export const featherIconHeartStyles = {
 
 export const featherIconPlusCicleStyles = {
   verticalAlign: 'middle',
+  color: `${colors.white}`,
   marginLeft: '6rem',
+  cursor: 'pointer',
 };

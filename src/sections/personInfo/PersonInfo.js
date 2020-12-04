@@ -11,7 +11,13 @@ import {
   favoritePerson,
 } from '../../store/actions/personActions';
 
-function PersonInfo({ deletePerson, favoritePerson, favorite, person }) {
+function PersonInfo({
+  deletePerson,
+  favoritePerson,
+  favorite,
+  person,
+  setModalInfo,
+}) {
   useEffect(() => {
     if (person !== null) {
       const alreadyFaved = person.group.some(
@@ -28,8 +34,12 @@ function PersonInfo({ deletePerson, favoritePerson, favorite, person }) {
     setFave(favorite);
   };
 
-  const showForm = () => {
-    console.log('hello');
+  const showForm = (personObj, modal) => {
+    setModalInfo((prevState) => ({
+      show: !prevState.show,
+      modal,
+      person: personObj,
+    }));
   };
 
   return (
@@ -43,7 +53,10 @@ function PersonInfo({ deletePerson, favoritePerson, favorite, person }) {
       ) : (
         <Styles.StyledContainer>
           <Styles.StyledSection style={{ paddingTop: '2rem', marginTop: '0' }}>
-            <Styles.StyledPic src="https://terrigen-cdn-dev.marvel.com/content/prod/1x/002irm_ons_crd_03.jpg" />
+            <Styles.StyledPic
+              src="https://terrigen-cdn-dev.marvel.com/content/prod/1x/002irm_ons_crd_03.jpg"
+              onClick={() => showForm(null, 'FileUpload')}
+            />
             <Styles.StyledName>
               {person.fName} {person.lName}
             </Styles.StyledName>
@@ -88,7 +101,7 @@ function PersonInfo({ deletePerson, favoritePerson, favorite, person }) {
                 height="35px"
                 border="none"
                 background="none"
-                onClick={() => showForm(person)}
+                onClick={() => showForm(person, 'AddPerson')}
               >
                 <Edit size={20} style={Styles.featherIconEditStyles} />
               </StyledButton>

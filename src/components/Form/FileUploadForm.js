@@ -1,10 +1,9 @@
 import React from 'react';
-import { XCircle } from 'react-feather';
+import { XCircle, Upload } from 'react-feather';
 import { useForm } from 'react-hook-form';
 import { connect } from 'react-redux';
 
-import * as Styles from './AddGroupFormStyles';
-import { StyledButton } from '../../styles/Button/Button';
+import * as Styles from './FileUploadFormStyles';
 
 function FileUploadForm({ setModalInfo }) {
   const { register, handleSubmit } = useForm();
@@ -24,21 +23,27 @@ function FileUploadForm({ setModalInfo }) {
 
   return (
     <>
-      <XCircle size={25} onClick={handleClose} />
+      <XCircle
+        size={25}
+        onClick={handleClose}
+        style={Styles.featherIconXCircleStyles}
+      />
+      <Styles.StyledFormTitle>Add a picture</Styles.StyledFormTitle>
       <Styles.StyledForm
         onSubmit={handleSubmit(onSubmit)}
         autoComplete="off"
         encType="multipart/form-data"
       >
+        <Styles.StyledLabel htmlFor="profilePic" placeholder="Add picture">
+          <Upload size={16} style={Styles.featherIconUploadStyles} />
+          <Styles.StyledButtonText>Choose a picture</Styles.StyledButtonText>
+        </Styles.StyledLabel>
         <Styles.StyledInput
           type="file"
-          placeholder="Upload an image"
-          name="avatar"
-          autoFocus
-          required
+          name="profilePic"
+          id="profilePic"
           ref={register}
         />
-        <StyledButton type="submit">Upload</StyledButton>
       </Styles.StyledForm>
     </>
   );

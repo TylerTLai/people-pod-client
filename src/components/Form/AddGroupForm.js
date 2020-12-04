@@ -27,7 +27,12 @@ function AddGroupForm({ setModalInfo, addGroup }) {
 
   return (
     <>
-      <XCircle size={25} onClick={handleClose} />
+      <XCircle
+        size={25}
+        onClick={handleClose}
+        style={Styles.featherIconXCircleStyles}
+      />
+      <h2>Add new group</h2>
       <Styles.StyledForm onSubmit={handleSubmit(onSubmit)} autoComplete="off">
         <Styles.StyledInput
           type="text"

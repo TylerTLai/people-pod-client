@@ -1,7 +1,5 @@
 import React from 'react';
 
-import AddGroupForm from '../Form/AddGroupForm';
-import AddPersonForm from '../Form/AddPersonForm';
 import { displayForm } from './DisplayForm';
 import { backdropVariants, modalVariants } from './ModalAnimations';
 import * as Styles from './ModalStyles';
@@ -24,15 +22,6 @@ function Modal({ modalInfo, setModalInfo }) {
             exit="exit"
           >
             {displayForm(modalInfo.modal, modalInfo.person, setModalInfo)}
-
-            {/* {modalInfo.modal === 'AddPerson' ? (
-              <AddPersonForm
-                person={modalInfo.person}
-                setModalInfo={setModalInfo}
-              />
-            ) : (
-              <AddGroupForm setModalInfo={setModalInfo} />
-            )} */}
           </Styles.StyledContainer>
         </Styles.StyledBackdrop>
       )}

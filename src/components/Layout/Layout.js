@@ -19,7 +19,7 @@ function Layout({ children, setModalInfo }) {
         <Sidebar setModalInfo={setModalInfo} />
       </div>
       <div className="personInfo">
-        <PersonInfo />
+        <PersonInfo setModalInfo={setModalInfo} />
       </div>
     </Styles.StyledContainer>
   );

@@ -81,7 +81,12 @@ function AddPersonForm({
     <Styles.StyledForm onSubmit={handleSubmit(onSubmit)} autoComplete="off">
       <Styles.StyledSectionContainer>
         <section>
-          <XCircle size={25} onClick={handleClose} />
+          <XCircle
+            size={25}
+            onClick={handleClose}
+            style={Styles.featherIconXCircleStyles}
+          />
+          <h2>Add new person</h2>
           <h3>Full Name</h3>
           <Styles.StyledInput
             type="input"
