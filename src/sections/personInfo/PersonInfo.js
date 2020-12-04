@@ -33,31 +33,35 @@ function PersonInfo({ deletePerson, favoritePerson, favorite, person }) {
   };
 
   return (
-    <Styles.StyledContainer>
+    <>
       {person === null ? (
-        <Styles.StyledTitle>PeoplePod</Styles.StyledTitle>
+        <Styles.StyledContainer>
+          <Styles.StyledTitleSection>
+            <h2>PeoplePod</h2>
+          </Styles.StyledTitleSection>
+        </Styles.StyledContainer>
       ) : (
         <Styles.StyledContainer>
-          <Styles.StyledSection>
+          <Styles.StyledSection style={{ paddingTop: '2rem', marginTop: '0' }}>
             <Styles.StyledPic src="https://terrigen-cdn-dev.marvel.com/content/prod/1x/002irm_ons_crd_03.jpg" />
             <Styles.StyledName>
               {person.fName} {person.lName}
             </Styles.StyledName>
-            <Styles.StyledJob>Iron Man</Styles.StyledJob>
+            <Styles.StyledJob>IRON MAN</Styles.StyledJob>
             <Styles.StyledLocation>California</Styles.StyledLocation>
             <Styles.StyledIcons>
               {fave ? (
                 <StyledButton
                   margin=".2rem"
                   padding="0 .2rem"
-                  width="80px"
-                  height="30px"
+                  width="35px"
+                  height="35px"
                   border="none"
                   background="none"
                   onClick={handleFavorite}
                 >
                   <Heart
-                    size={16}
+                    size={20}
                     style={Styles.featherIconHeartFilledStyles}
                   />
                 </StyledButton>
@@ -65,50 +69,56 @@ function PersonInfo({ deletePerson, favoritePerson, favorite, person }) {
                 <StyledButton
                   margin=".2rem"
                   padding="0 .2rem"
-                  width="80px"
-                  height="30px"
+                  width="35px"
+                  height="35px"
                   border="none"
                   background="none"
                   onClick={handleFavorite}
                 >
                   <Heart
-                    size={16}
+                    size={20}
                     style={Styles.featherIconHeartNotFilledStyles}
                   />
                 </StyledButton>
               )}
-              {/* <p>Favorite</p> */}
               <StyledButton
                 margin=".2rem"
                 padding="0 .2rem"
-                width="80px"
-                height="30px"
+                width="35px"
+                height="35px"
                 border="none"
                 background="none"
                 onClick={() => showForm(person)}
               >
-                <Edit size={16} style={Styles.featherIconEditStyles} />
-                {/* <p>Edit</p> */}
+                <Edit size={20} style={Styles.featherIconEditStyles} />
               </StyledButton>
               <StyledButton
                 margin=".2rem"
                 padding="0 .2rem"
-                width="80px"
-                height="30px"
+                width="35px"
+                height="35px"
                 border="none"
                 background="none"
                 onClick={() => deletePerson(person._id)}
               >
-                <Trash size={16} style={Styles.featherIconDeleteStyles} />
-                {/* <p>Delete</p> */}
+                <Trash size={20} style={Styles.featherIconDeleteStyles} />
               </StyledButton>
             </Styles.StyledIcons>
           </Styles.StyledSection>
-
-          <p>{person.note}</p>
+          <Styles.StyledSection>
+            <Styles.StyledTitle>Note</Styles.StyledTitle>
+            <Styles.StyledNote>{person.note}</Styles.StyledNote>
+          </Styles.StyledSection>
+          {/* // TODO: add contact and social media */}
+          <Styles.StyledSection>
+            <Styles.StyledTitle>Contact</Styles.StyledTitle>
+          </Styles.StyledSection>
+          <Styles.StyledSection>
+            <Styles.StyledTitle>Social Media</Styles.StyledTitle>
+          </Styles.StyledSection>
         </Styles.StyledContainer>
       )}
-    </Styles.StyledContainer>
+    </>
   );
 }
 
