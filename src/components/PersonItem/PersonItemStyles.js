@@ -16,9 +16,8 @@ export const StyledContainer = styled(motion.div)`
   grid-template-columns: auto 2fr;
   grid-template-rows: auto 50px;
   align-items: center;
-  border-radius: 5px;
+  border-radius: 10px;
   background: ${colors.white};
-  border: 1px solid ${colors.offWhite2};
   padding: 1rem 2rem 0.5rem 2rem;
   grid-template-areas:
     'contentArea contentArea'
@@ -75,6 +74,7 @@ export const featherIconHeartFilledStyles = {
 export const featherIconHeartNotFilledStyles = {
   verticalAlign: 'bottom',
   marginRight: '.5rem',
+  color: `${colors.spunPearl}`,
 };
 
 export const featherIconEditStyles = {

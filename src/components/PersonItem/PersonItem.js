@@ -12,11 +12,11 @@ import { StyledButton } from '../../styles/Button/Button';
 
 function PersonItem({
   deletePerson,
+  favorite,
+  favoritePerson,
   getPerson,
   person,
   setModalInfo,
-  favoritePerson,
-  favorite,
 }) {
   useEffect(() => {
     const alreadyFaved = person.group.some((el) => el.groupName === 'Favorite');
@@ -40,7 +40,7 @@ function PersonItem({
 
   return (
     <Styles.StyledLink to={'/person/' + person._id}>
-      <Styles.StyledContainer>
+      <Styles.StyledContainer onClick={() => getPerson(person._id)}>
         <Styles.StyledContentArea>
           <div>
             <Styles.StyledPic src="https://terrigen-cdn-dev.marvel.com/content/prod/1x/002irm_ons_crd_03.jpg" />
@@ -56,30 +56,33 @@ function PersonItem({
           </div>
         </Styles.StyledContentArea>
         <Styles.StyledButtonsArea>
-          <StyledButton
-            margin=".2rem"
-            padding="0 .2rem"
-            width="80px"
-            height="30px"
-            border="none"
-            background="none"
-          >
-            {fave ? (
-              <Heart
-                size={16}
-                style={Styles.featherIconHeartFilledStyles}
-                onClick={handleFavorite}
-              />
-            ) : (
-              <Heart
-                size={16}
-                style={Styles.featherIconHeartNotFilledStyles}
-                onClick={handleFavorite}
-              />
-            )}
-
-            <Styles.StyledButtonText>Favorite</Styles.StyledButtonText>
-          </StyledButton>
+          {fave ? (
+            <StyledButton
+              margin=".2rem"
+              padding="0 .2rem"
+              width="80px"
+              height="30px"
+              border="none"
+              background="none"
+              onClick={handleFavorite}
+            >
+              <Heart size={16} style={Styles.featherIconHeartFilledStyles} />
+              <Styles.StyledButtonText>Favorite</Styles.StyledButtonText>
+            </StyledButton>
+          ) : (
+            <StyledButton
+              margin=".2rem"
+              padding="0 .2rem"
+              width="80px"
+              height="30px"
+              border="none"
+              background="none"
+              onClick={handleFavorite}
+            >
+              <Heart size={16} style={Styles.featherIconHeartNotFilledStyles} />
+              <Styles.StyledButtonText>Favorite</Styles.StyledButtonText>
+            </StyledButton>
+          )}
           <StyledButton
             margin=".2rem"
             padding="0 .2rem"

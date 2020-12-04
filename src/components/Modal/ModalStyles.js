@@ -9,7 +9,7 @@ export const StyledContainer = styled(motion.div)`
   margin: 0 auto;
   padding: 1.5rem;
   background-color: white;
-  border-radius: 5px;
+  border-radius: 10px;
   z-index: 2;
 `;
 
