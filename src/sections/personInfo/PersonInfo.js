@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Heart, Edit, Trash } from 'react-feather';
+import axios from 'axios';
+
+import userPic from '../../assets/user-placeholder.jpg';
 
 import * as Styles from './PersonInfoStyles';
 import { StyledButton } from '../../styles/Button/Button';
@@ -27,7 +30,21 @@ function PersonInfo({
     }
   }, [person]);
 
+  const getImages = async () => {
+    const res = await axios.get('/api/images/');
+    setImages(res.data.images);
+  };
+
+  useEffect(() => {
+    getImages();
+  }, [person]);
+
   const [fave, setFave] = useState(false);
+  const [images, setImages] = useState(null);
+
+  const getPics = () => {
+    getImages();
+  };
 
   const handleFavorite = () => {
     favoritePerson(person._id);
@@ -42,6 +59,8 @@ function PersonInfo({
     }));
   };
 
+  console.log('images >>> ', images);
+
   return (
     <>
       {person === null ? (
@@ -54,9 +73,16 @@ function PersonInfo({
         <Styles.StyledContainer>
           <Styles.StyledSection style={{ paddingTop: '2rem', marginTop: '0' }}>
             <Styles.StyledPic
-              src="https://terrigen-cdn-dev.marvel.com/content/prod/1x/002irm_ons_crd_03.jpg"
+              src={userPic}
               onClick={() => showForm(null, 'FileUpload')}
             />
+            {images.map((image) => (
+              <img
+                src={`http://localhost:5000/uploads${image.filePath}`}
+                alt="profile"
+              />
+            ))}
+            <button onClick={getPics}>get profile pic</button>
             <Styles.StyledName>
               {person.fName} {person.lName}
             </Styles.StyledName>

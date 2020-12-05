@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Heart, Edit, Trash } from 'react-feather';
 
 import * as Styles from './PersonItemStyles';
+import userPic from '../../assets/user-placeholder.jpg';
 import {
   deletePerson,
   getPerson,
@@ -43,7 +44,7 @@ function PersonItem({
       <Styles.StyledContainer onClick={() => getPerson(person._id)}>
         <Styles.StyledContentArea>
           <div>
-            <Styles.StyledPic src="https://terrigen-cdn-dev.marvel.com/content/prod/1x/002irm_ons_crd_03.jpg" />
+            <Styles.StyledPic src={userPic} />
           </div>
           <div>
             <Styles.StyledName>{`${person.fName} ${person.lName}`}</Styles.StyledName>
