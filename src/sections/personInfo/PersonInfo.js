@@ -35,12 +35,12 @@ function PersonInfo({
     setImages(res.data.images);
   };
 
-  useEffect(() => {
-    getImages();
-  }, [person]);
+  // useEffect(() => {
+  //   getImages();
+  // }, [person]);
 
   const [fave, setFave] = useState(false);
-  const [images, setImages] = useState(null);
+  const [images, setImages] = useState([]);
 
   const getPics = () => {
     getImages();
@@ -61,6 +61,23 @@ function PersonInfo({
 
   console.log('images >>> ', images);
 
+  const userPictures =
+    images.length > 0 ? (
+      images.map((image) => (
+        <Styles.StyledPic
+          src={`http://localhost:5000/uploads${image.filePath}`}
+          alt="user"
+          onClick={() => showForm(null, 'FileUpload')}
+        />
+      ))
+    ) : (
+      <Styles.StyledPic
+        src={userPic}
+        alt="user"
+        onClick={() => showForm(null, 'FileUpload')}
+      />
+    );
+
   return (
     <>
       {person === null ? (
@@ -72,17 +89,8 @@ function PersonInfo({
       ) : (
         <Styles.StyledContainer>
           <Styles.StyledSection style={{ paddingTop: '2rem', marginTop: '0' }}>
-            <Styles.StyledPic
-              src={userPic}
-              onClick={() => showForm(null, 'FileUpload')}
-            />
-            {images.map((image) => (
-              <img
-                src={`http://localhost:5000/uploads${image.filePath}`}
-                alt="profile"
-              />
-            ))}
-            <button onClick={getPics}>get profile pic</button>
+            {userPictures}
+            <button onClick={getPics}>get user pic</button>
             <Styles.StyledName>
               {person.fName} {person.lName}
             </Styles.StyledName>
