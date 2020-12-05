@@ -5,7 +5,7 @@ import theme from '../../styles/theme';
 const { colors, fontSizes } = theme;
 
 export const StyledForm = styled.form`
-  height: 50px;
+  height: 100px;
   padding-top: 1rem;
 `;
 
