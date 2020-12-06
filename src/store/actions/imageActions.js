@@ -1,10 +1,10 @@
 import axios from 'axios';
-import { ADD_IMAGE, IMAGES_ERROR } from './imageTypes';
+import { ADD_IMAGE, GET_IMAGE, IMAGES_ERROR } from './imageTypes';
 
 // Add one or more image(s)
 export const addImage = (newImage) => async (dispatch) => {
   try {
-    console.log('addImage, newImage >>>', newImage);
+    // console.log('addImage, newImage >>>', newImage);
 
     const res = await axios.post(
       'http://localhost:5000/api/upload/',
@@ -16,7 +16,7 @@ export const addImage = (newImage) => async (dispatch) => {
       }
     );
 
-    console.log('files uploaded ', res.data);
+    // console.log('files uploaded ', res.data);
 
     dispatch({
       type: ADD_IMAGE,
@@ -27,6 +27,23 @@ export const addImage = (newImage) => async (dispatch) => {
     dispatch({
       type: IMAGES_ERROR,
       payload: 'addImage error',
+    });
+  }
+};
+
+export const getImage = () => async (dispatch) => {
+  try {
+    const res = await axios.get('/api/images/');
+    // console.log('getimage response ', res.data);
+    dispatch({
+      type: GET_IMAGE,
+      payload: res.data,
+    });
+  } catch (err) {
+    console.log('catch error ', err);
+    dispatch({
+      type: IMAGES_ERROR,
+      payload: 'getImage error',
     });
   }
 };

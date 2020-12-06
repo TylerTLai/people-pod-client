@@ -1,12 +1,13 @@
-import { ADD_IMAGE, IMAGES_ERROR } from '../actions/imageTypes';
+import { ADD_IMAGE, GET_IMAGE, IMAGES_ERROR } from '../actions/imageTypes';
 
-const initialState = [];
+const initialState = null;
 
 function images(state = initialState, action) {
   switch (action.type) {
     case ADD_IMAGE:
-      console.log('image reducer payload ', action.payload);
-      return [action.payload, ...state];
+      return state;
+    case GET_IMAGE:
+      return action.payload;
     default:
       return state;
   }

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Heart, Edit, Trash } from 'react-feather';
-import axios from 'axios';
 
 import userPic from '../../assets/user-placeholder.jpg';
 
 import * as Styles from './PersonInfoStyles';
+import { getImage } from '../../store/actions/imageActions';
 import { StyledButton } from '../../styles/Button/Button';
 
 import {
@@ -18,6 +18,8 @@ function PersonInfo({
   deletePerson,
   favoritePerson,
   favorite,
+  getImage,
+  imageCollection,
   person,
   setModalInfo,
 }) {
@@ -28,23 +30,9 @@ function PersonInfo({
       );
       setFave(alreadyFaved);
     }
-  }, [person]);
-
-  const getImages = async () => {
-    const res = await axios.get('/api/images/');
-    setImages(res.data.images);
-  };
-
-  // useEffect(() => {
-  //   getImages();
-  // }, [person]);
+  }, [person, imageCollection]);
 
   const [fave, setFave] = useState(false);
-  const [images, setImages] = useState([]);
-
-  const getPics = () => {
-    getImages();
-  };
 
   const handleFavorite = () => {
     favoritePerson(person._id);
@@ -59,13 +47,11 @@ function PersonInfo({
     }));
   };
 
-  console.log('images >>> ', images);
-
   const userPictures =
-    images.length > 0 ? (
-      images.map((image) => (
+    imageCollection !== null ? (
+      imageCollection.images.map((imgObj) => (
         <Styles.StyledPic
-          src={`http://localhost:5000/uploads${image.filePath}`}
+          src={`http://localhost:5000/uploads${imgObj.filePath}`}
           alt="user"
           onClick={() => showForm(null, 'FileUpload')}
         />
@@ -90,7 +76,7 @@ function PersonInfo({
         <Styles.StyledContainer>
           <Styles.StyledSection style={{ paddingTop: '2rem', marginTop: '0' }}>
             {userPictures}
-            <button onClick={getPics}>get user pic</button>
+            <button onClick={getImage}>get user pic</button>
             <Styles.StyledName>
               {person.fName} {person.lName}
             </Styles.StyledName>
@@ -172,12 +158,14 @@ function PersonInfo({
 const mapStateToProps = (state) => {
   return {
     favorite: state.people.favorite,
+    imageCollection: state.image,
     person: state.people.person,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    getImage: () => dispatch(getImage()),
     favoritePerson: (personId) => dispatch(favoritePerson(personId)),
     getPerson: (personId) => dispatch(getPerson(personId)),
     deletePerson: (personId) => dispatch(deletePerson(personId)),
