@@ -19,3 +19,7 @@ export const StyledInput = styled.input`
   border-radius: 3px;
   outline: none;
 `;
+
+export const featherIconXCircleStyles = {
+  cursor: 'pointer',
+};

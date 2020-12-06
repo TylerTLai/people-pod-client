@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Heart, Edit, Trash } from 'react-feather';
+import axios from 'axios';
+
+import userPic from '../../assets/user-placeholder.jpg';
 
 import * as Styles from './PersonInfoStyles';
 import { StyledButton } from '../../styles/Button/Button';
@@ -11,7 +14,13 @@ import {
   favoritePerson,
 } from '../../store/actions/personActions';
 
-function PersonInfo({ deletePerson, favoritePerson, favorite, person }) {
+function PersonInfo({
+  deletePerson,
+  favoritePerson,
+  favorite,
+  person,
+  setModalInfo,
+}) {
   useEffect(() => {
     if (person !== null) {
       const alreadyFaved = person.group.some(
@@ -21,16 +30,53 @@ function PersonInfo({ deletePerson, favoritePerson, favorite, person }) {
     }
   }, [person]);
 
+  const getImages = async () => {
+    const res = await axios.get('/api/images/');
+    setImages(res.data.images);
+  };
+
+  // useEffect(() => {
+  //   getImages();
+  // }, [person]);
+
   const [fave, setFave] = useState(false);
+  const [images, setImages] = useState([]);
+
+  const getPics = () => {
+    getImages();
+  };
 
   const handleFavorite = () => {
     favoritePerson(person._id);
     setFave(favorite);
   };
 
-  const showForm = () => {
-    console.log('hello');
+  const showForm = (personObj, modal) => {
+    setModalInfo((prevState) => ({
+      show: !prevState.show,
+      modal,
+      person: personObj,
+    }));
   };
+
+  console.log('images >>> ', images);
+
+  const userPictures =
+    images.length > 0 ? (
+      images.map((image) => (
+        <Styles.StyledPic
+          src={`http://localhost:5000/uploads${image.filePath}`}
+          alt="user"
+          onClick={() => showForm(null, 'FileUpload')}
+        />
+      ))
+    ) : (
+      <Styles.StyledPic
+        src={userPic}
+        alt="user"
+        onClick={() => showForm(null, 'FileUpload')}
+      />
+    );
 
   return (
     <>
@@ -43,7 +89,8 @@ function PersonInfo({ deletePerson, favoritePerson, favorite, person }) {
       ) : (
         <Styles.StyledContainer>
           <Styles.StyledSection style={{ paddingTop: '2rem', marginTop: '0' }}>
-            <Styles.StyledPic src="https://terrigen-cdn-dev.marvel.com/content/prod/1x/002irm_ons_crd_03.jpg" />
+            {userPictures}
+            <button onClick={getPics}>get user pic</button>
             <Styles.StyledName>
               {person.fName} {person.lName}
             </Styles.StyledName>
@@ -88,7 +135,7 @@ function PersonInfo({ deletePerson, favoritePerson, favorite, person }) {
                 height="35px"
                 border="none"
                 background="none"
-                onClick={() => showForm(person)}
+                onClick={() => showForm(person, 'AddPerson')}
               >
                 <Edit size={20} style={Styles.featherIconEditStyles} />
               </StyledButton>

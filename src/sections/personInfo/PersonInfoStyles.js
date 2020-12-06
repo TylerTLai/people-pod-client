@@ -36,6 +36,7 @@ export const StyledPic = styled.img`
   display: flex;
   margin: auto;
   border-radius: 100%;
+  cursor: pointer;
   /* box-shadow: 0px 19px 18px -10px rgba(0, 0, 0, 0.3); */
 `;
 

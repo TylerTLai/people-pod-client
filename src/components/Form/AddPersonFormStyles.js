@@ -34,3 +34,7 @@ export const customStyles = {
   option: (styles) => ({ ...styles, width: '300px' }),
   menu: (styles) => ({ ...styles, width: '300px' }),
 };
+
+export const featherIconXCircleStyles = {
+  cursor: 'pointer',
+};

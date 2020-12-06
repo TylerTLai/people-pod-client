@@ -52,7 +52,7 @@ function Drawer({ getGroups, groups, getGroup, getPeople, setModalInfo }) {
         </div>
         <div>
           <PlusCircle
-            size={18}
+            size={23}
             style={Styles.featherIconPlusCicleStyles}
             onClick={showAddGroupModal}
           />

@@ -21,7 +21,7 @@ function Feed({ setModalInfo }) {
         <Styles.StyledButtonsContainer className="addPerson">
           <StyledButton padding={'.7rem 1rem'} onClick={handleAddPerson}>
             <UserPlus size={16} style={Styles.featherIconUserPlusStyles} />
-            <Styles.StyledButtonText>Add New Person</Styles.StyledButtonText>
+            <Styles.StyledButtonText>Add new person</Styles.StyledButtonText>
           </StyledButton>
           {/* // TODO: add sort feature */}
           <StyledButton padding={`.2rem .7rem`} className="sort">
