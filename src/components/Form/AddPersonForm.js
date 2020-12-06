@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import AsyncCreatableSelect from 'react-select/async-creatable';
+import axios from 'axios';
 import { connect } from 'react-redux';
 import { useForm } from 'react-hook-form';
-import { XCircle } from 'react-feather';
+import { XCircle, Upload } from 'react-feather';
 
 import * as Styles from './AddPersonFormStyles';
 import { addGroup } from '../../store/actions/groupActions';
 import { addPerson, updatePerson } from '../../store/actions/personActions';
 import { StyledButton } from '../../styles/Button/Button';
 import { getOptions } from '../../utils/AddPersonFormUtils';
+import userPic from '../../assets/user-placeholder.jpg';
 
 function AddPersonForm({
   addPerson,
@@ -42,21 +44,51 @@ function AddPersonForm({
   const [formPerson, setFormPerson] = useState(person);
   const [personId, setPersonId] = useState('');
   const [updateInfo, setUpdateInfo] = useState(false);
+  const [selectedFile, setSelectedFile] = useState(null);
 
   const handleGroupChange = (inputValue) => {
     console.log('what is inputValue', inputValue);
     setFormGroup(inputValue !== null ? inputValue : []);
   };
 
+  const handlePictureChange = (e) => {
+    setSelectedFile((prevState) => e.target.files);
+  };
+
   const { register, handleSubmit } = useForm();
 
-  const onSubmit = (personInfo, e) => {
+  const onSubmit = async (personInfo, e) => {
     if (updateInfo) {
       updatePerson(personInfo, formGroup, personId);
       addGroup(formGroup);
     } else {
       addPerson(personInfo, formGroup);
       addGroup(formGroup);
+    }
+
+    // upload images to server
+    const formData = new FormData();
+
+    // loop through files
+    for (const file of selectedFile) {
+      formData.append('picture', file);
+    }
+
+    // post to server
+    try {
+      const res = await axios.post(
+        'http://localhost:5000/api/upload/',
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
+      console.log('files uploaded ', res.data);
+    } catch (err) {
+      alert('File upload failed.');
+      console.log('error ', err);
     }
 
     e.target.reset();
@@ -78,65 +110,80 @@ function AddPersonForm({
   };
 
   return (
-    <Styles.StyledForm onSubmit={handleSubmit(onSubmit)} autoComplete="off">
-      <Styles.StyledSectionContainer>
+    <>
+      <XCircle
+        size={25}
+        onClick={handleClose}
+        style={Styles.featherIconXCircleStyles}
+      />
+      <h2>Add new person</h2>
+      <Styles.StyledForm onSubmit={handleSubmit(onSubmit)} autoComplete="off">
+        <Styles.StyledSectionContainer>
+          <section>
+            <Styles.StyledLabel htmlFor="picture" placeholder="Add picture">
+              <Upload size={16} style={Styles.featherIconUploadStyles} />
+              <Styles.StyledButtonText>
+                Choose a picture
+              </Styles.StyledButtonText>
+            </Styles.StyledLabel>
+            <Styles.StyledUploadInput
+              type="file"
+              name="picture"
+              multiple
+              id="picture"
+              onChange={handlePictureChange}
+            />
+            <h3>Full Name</h3>
+            <Styles.StyledInput
+              type="input"
+              name="fName"
+              required
+              ref={register}
+              placeholder="First name"
+              autoFocus
+              value={formPerson ? formPerson.fName : ''}
+              onChange={handleFieldChange}
+            />
+            <Styles.StyledInput
+              type="input"
+              name="lName"
+              ref={register}
+              placeholder="Last name"
+              value={formPerson ? formPerson.lName : ''}
+              onChange={handleFieldChange}
+            />
+          </section>
+        </Styles.StyledSectionContainer>
+
         <section>
-          <XCircle
-            size={25}
-            onClick={handleClose}
-            style={Styles.featherIconXCircleStyles}
-          />
-          <h2>Add new person</h2>
-          <h3>Full Name</h3>
-          <Styles.StyledInput
-            type="input"
-            name="fName"
-            required
-            ref={register}
-            placeholder="First name"
-            autoFocus
-            value={formPerson ? formPerson.fName : ''}
-            onChange={handleFieldChange}
-          />
-          <Styles.StyledInput
-            type="input"
-            name="lName"
-            ref={register}
-            placeholder="Last name"
-            value={formPerson ? formPerson.lName : ''}
-            onChange={handleFieldChange}
+          <h3>Group</h3>
+
+          <AsyncCreatableSelect
+            onChange={handleGroupChange}
+            isMulti
+            defaultOptions
+            loadOptions={getOptions}
+            styles={Styles.customStyles}
+            value={formGroup ? formGroup : undefined}
           />
         </section>
-      </Styles.StyledSectionContainer>
 
-      <section>
-        <h3>Group</h3>
+        <Styles.StyledSectionContainer>
+          <section>
+            <h3>Quick Note</h3>
+            <Styles.StyledTextArea
+              name="note"
+              ref={register}
+              placeholder="Write a quick note..."
+              value={formPerson ? formPerson.note : ''}
+              onChange={handleFieldChange}
+            />
+          </section>
+        </Styles.StyledSectionContainer>
 
-        <AsyncCreatableSelect
-          onChange={handleGroupChange}
-          isMulti
-          defaultOptions
-          loadOptions={getOptions}
-          styles={Styles.customStyles}
-          value={formGroup ? formGroup : undefined}
-        />
-      </section>
-
-      <Styles.StyledSectionContainer>
-        <section>
-          <h3>Quick Note</h3>
-          <Styles.StyledTextArea
-            name="note"
-            ref={register}
-            placeholder="Write a quick note..."
-            value={formPerson ? formPerson.note : ''}
-            onChange={handleFieldChange}
-          />
-        </section>
-      </Styles.StyledSectionContainer>
-
-      <StyledButton type="submit">Done</StyledButton>
-    </Styles.StyledForm>
+        <StyledButton type="submit">Done</StyledButton>
+      </Styles.StyledForm>
+    </>
   );
 }
 

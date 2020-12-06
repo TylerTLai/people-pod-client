@@ -11,7 +11,7 @@ export const StyledForm = styled.form`
 
 export const StyledFormTitle = styled.h2``;
 
-export const StyledInput = styled.input`
+export const StyledUploadInput = styled.input`
   visibility: hidden;
 `;
 

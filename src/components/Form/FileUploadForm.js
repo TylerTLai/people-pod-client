@@ -62,7 +62,7 @@ function FileUploadForm({ setModalInfo }) {
           <Upload size={16} style={Styles.featherIconUploadStyles} />
           <Styles.StyledButtonText>Choose a picture</Styles.StyledButtonText>
         </Styles.StyledLabel>
-        <Styles.StyledInput
+        <Styles.StyledUploadInput
           type="file"
           name="picture"
           multiple
