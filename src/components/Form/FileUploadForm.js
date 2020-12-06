@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { XCircle, Upload } from 'react-feather';
 import { connect } from 'react-redux';
-import axios from 'axios';
 
 import * as Styles from './FileUploadFormStyles';
+import { addImage } from '../../store/actions/imageActions';
 import { StyledButton } from '../../styles/Button/Button';
 
-function FileUploadForm({ setModalInfo }) {
+function FileUploadForm({ addImage, setModalInfo }) {
   const [selectedFile, setSelectedFile] = useState(null);
 
   const handleSubmit = async (e) => {
@@ -19,21 +19,7 @@ function FileUploadForm({ setModalInfo }) {
     }
 
     // post to server
-    try {
-      const res = await axios.post(
-        'http://localhost:5000/api/upload/',
-        formData,
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        }
-      );
-      console.log('files uploaded ', res.data);
-    } catch (err) {
-      alert('File upload failed.');
-      console.log('error ', err);
-    }
+    addImage(formData)
 
     setModalInfo({
       show: false,
@@ -77,10 +63,10 @@ function FileUploadForm({ setModalInfo }) {
   );
 }
 
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     addGroup: (group) => dispatch(addGroup(group)),
-//   };
-// };
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addImage: (image) => dispatch(addImage(image)),
+  };
+};
 
-export default connect(null, null)(FileUploadForm);
+export default connect(null, mapDispatchToProps)(FileUploadForm);
