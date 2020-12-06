@@ -7,7 +7,7 @@ export const StyledContainer = styled(motion.div)`
   max-width: 60vw;
   width: 330px;
   margin: 0 auto;
-  padding: 1.5rem 0 1.5rem 1.5rem;
+  padding: 1.5rem 0 2.5rem 1.5rem;
   background-color: white;
   border-radius: 10px;
   z-index: 2;

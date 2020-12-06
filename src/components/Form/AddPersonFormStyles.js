@@ -4,7 +4,7 @@ import theme from '../../styles/theme';
 const { colors, fontSizes } = theme;
 
 export const StyledForm = styled.form`
-  height: 500px;
+  height: 400px;
   overflow-y: auto;
   overflow-x: hidden;
 `;

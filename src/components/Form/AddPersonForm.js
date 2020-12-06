@@ -10,7 +10,6 @@ import { addGroup } from '../../store/actions/groupActions';
 import { addPerson, updatePerson } from '../../store/actions/personActions';
 import { StyledButton } from '../../styles/Button/Button';
 import { getOptions } from '../../utils/AddPersonFormUtils';
-import userPic from '../../assets/user-placeholder.jpg';
 
 function AddPersonForm({
   addPerson,
@@ -120,6 +119,7 @@ function AddPersonForm({
       <Styles.StyledForm onSubmit={handleSubmit(onSubmit)} autoComplete="off">
         <Styles.StyledSectionContainer>
           <section>
+          <h3 style={{marginTop: 0, marginBottom: '2rem'}}>Select a picture</h3>
             <Styles.StyledLabel htmlFor="picture" placeholder="Add picture">
               <Upload size={16} style={Styles.featherIconUploadStyles} />
               <Styles.StyledButtonText>
@@ -133,6 +133,8 @@ function AddPersonForm({
               id="picture"
               onChange={handlePictureChange}
             />
+          </section>
+          <section>
             <h3>Full Name</h3>
             <Styles.StyledInput
               type="input"
