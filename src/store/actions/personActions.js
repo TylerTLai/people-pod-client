@@ -1,4 +1,5 @@
 import axios from 'axios';
+
 import {
   ADD_PERSON,
   DELETE_PERSON,
@@ -57,12 +58,16 @@ export const getPeople = (groupId) => async (dispatch) => {
 };
 
 // Add a person
-export const addPerson = (person, group) => async (dispatch) => {
+export const addPerson = (person, group, image) => async (dispatch) => {
+
   try {
     const res = await axios.post('/api/people/add', {
       person,
       group,
+      image
     });
+
+    console.log('what is the server res ', res.data);
 
     dispatch({
       type: ADD_PERSON,

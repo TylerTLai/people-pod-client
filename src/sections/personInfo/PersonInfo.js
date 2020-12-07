@@ -5,7 +5,6 @@ import { Heart, Edit, Trash } from 'react-feather';
 import userPic from '../../assets/user-placeholder.jpg';
 
 import * as Styles from './PersonInfoStyles';
-import { getImage } from '../../store/actions/imageActions';
 import { StyledButton } from '../../styles/Button/Button';
 
 import {
@@ -18,20 +17,26 @@ function PersonInfo({
   deletePerson,
   favoritePerson,
   favorite,
-  images,
   person,
   setModalInfo,
 }) {
   useEffect(() => {
     if (person !== null) {
+      // Set favorite
       const alreadyFaved = person.group.some(
         (el) => el.groupName === 'Favorite'
       );
       setFave(alreadyFaved);
+
+      // Set pictures
+      if (person.images !== null) {
+        setUserPics(person.images);
+      }
     }
-  }, [person, images]);
+  }, [person]);
 
   const [fave, setFave] = useState(false);
+  const [userPics, setUserPics] = useState([]);
 
   const handleFavorite = () => {
     favoritePerson(person._id);
@@ -47,8 +52,8 @@ function PersonInfo({
   };
 
   const userPictures =
-    images.length > 0 ? (
-      images.map((image) => (
+    userPics.length > 0 ? (
+      userPics.map((image) => (
         <Styles.StyledPic
           src={`http://localhost:5000/uploads${image.filePath}`}
           alt="user"
@@ -74,6 +79,11 @@ function PersonInfo({
       ) : (
         <Styles.StyledContainer>
           <Styles.StyledSection style={{ paddingTop: '2rem', marginTop: '0' }}>
+            {/* <Styles.StyledPic
+              src={userPic}
+              alt="user"
+              onClick={() => showForm(null, 'FileUpload')}
+            /> */}
             {userPictures}
             <Styles.StyledName>
               {person.fName} {person.lName}
@@ -156,7 +166,7 @@ function PersonInfo({
 const mapStateToProps = (state) => {
   return {
     favorite: state.people.favorite,
-    images: state.uploads.images,
+    // images: state.uploads.images,
     person: state.people.person,
   };
 };

@@ -1,22 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import AsyncCreatableSelect from 'react-select/async-creatable';
-import axios from 'axios';
 import { connect } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { XCircle, Upload } from 'react-feather';
 
 import * as Styles from './AddPersonFormStyles';
 import { addGroup } from '../../store/actions/groupActions';
+import { addImage } from '../../store/actions/imageActions';
 import { addPerson, updatePerson } from '../../store/actions/personActions';
 import { StyledButton } from '../../styles/Button/Button';
 import { getOptions } from '../../utils/AddPersonFormUtils';
 
 function AddPersonForm({
-  addPerson,
+  addImage,
   addGroup,
-  updatePerson,
+  addPerson,
   person,
   setModalInfo,
+  updatePerson,
 }) {
   useEffect(() => {
     // Checks if this form is being triggered by the personItem or by the 'add person' button.
@@ -57,37 +58,20 @@ function AddPersonForm({
   const { register, handleSubmit } = useForm();
 
   const onSubmit = async (personInfo, e) => {
-    if (updateInfo) {
-      updatePerson(personInfo, formGroup, personId);
-      addGroup(formGroup);
-    } else {
-      addPerson(personInfo, formGroup);
-      addGroup(formGroup);
-    }
-
-    // upload images to server
+    //  Get formData
     const formData = new FormData();
-
-    // loop through files
     for (const file of selectedFile) {
       formData.append('picture', file);
     }
 
-    // post to server
-    try {
-      const res = await axios.post(
-        'http://localhost:5000/api/upload/',
-        formData,
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        }
-      );
-      console.log('files uploaded ', res.data);
-    } catch (err) {
-      alert('File upload failed.');
-      console.log('error ', err);
+    if (updateInfo) {
+      updatePerson(personInfo, formGroup, personId);
+      addGroup(formGroup);
+      addImage(formData, personId);
+    } else {
+      addPerson(personInfo, formGroup, formData);
+      addGroup(formGroup);
+      addImage(formData);
     }
 
     e.target.reset();
@@ -119,7 +103,9 @@ function AddPersonForm({
       <Styles.StyledForm onSubmit={handleSubmit(onSubmit)} autoComplete="off">
         <Styles.StyledSectionContainer>
           <section>
-          <h3 style={{marginTop: 0, marginBottom: '2rem'}}>Select a picture</h3>
+            <h3 style={{ marginTop: 0, marginBottom: '2rem' }}>
+              Select a picture
+            </h3>
             <Styles.StyledLabel htmlFor="picture" placeholder="Add picture">
               <Upload size={16} style={Styles.featherIconUploadStyles} />
               <Styles.StyledButtonText>
@@ -189,6 +175,6 @@ function AddPersonForm({
   );
 }
 
-export default connect(null, { addPerson, addGroup, updatePerson })(
+export default connect(null, { addPerson, addGroup, addImage, updatePerson })(
   AddPersonForm
 );
