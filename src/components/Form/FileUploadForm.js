@@ -6,7 +6,7 @@ import * as Styles from './FileUploadFormStyles';
 import { addImage } from '../../store/actions/imageActions';
 import { StyledButton } from '../../styles/Button/Button';
 
-function FileUploadForm({ addImage, setModalInfo }) {
+function FileUploadForm({ addImage, personId, setModalInfo }) {
   const [selectedFile, setSelectedFile] = useState(null);
 
   const handleSubmit = async (e) => {
@@ -19,7 +19,7 @@ function FileUploadForm({ addImage, setModalInfo }) {
     }
 
     // post to server
-    addImage(formData)
+    addImage(formData, personId);
 
     setModalInfo({
       show: false,
@@ -63,10 +63,16 @@ function FileUploadForm({ addImage, setModalInfo }) {
   );
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapStateToProps = (state) => {
   return {
-    addImage: (image) => dispatch(addImage(image)),
+    personId: state.people.person._id,
   };
 };
 
-export default connect(null, mapDispatchToProps)(FileUploadForm);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addImage: (image, id) => dispatch(addImage(image, id)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(FileUploadForm);

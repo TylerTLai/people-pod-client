@@ -2,12 +2,11 @@ import axios from 'axios';
 import { ADD_IMAGE, GET_IMAGE, IMAGES_ERROR } from './imageTypes';
 
 // Add one or more image(s)
-export const addImage = (newImage) => async (dispatch) => {
+export const addImage = (newImage, personId) => async (dispatch) => {
   try {
     // console.log('addImage, newImage >>>', newImage);
-
     const res = await axios.post(
-      'http://localhost:5000/api/upload/',
+      `http://localhost:5000/api/images/upload/${personId}`,
       newImage,
       {
         headers: {
@@ -16,7 +15,7 @@ export const addImage = (newImage) => async (dispatch) => {
       }
     );
 
-    // console.log('files uploaded ', res.data);
+    console.log('addimage server response >>> ', res.data);
 
     dispatch({
       type: ADD_IMAGE,

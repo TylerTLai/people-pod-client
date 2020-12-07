@@ -18,8 +18,7 @@ function PersonInfo({
   deletePerson,
   favoritePerson,
   favorite,
-  getImage,
-  imageCollection,
+  images,
   person,
   setModalInfo,
 }) {
@@ -30,7 +29,7 @@ function PersonInfo({
       );
       setFave(alreadyFaved);
     }
-  }, [person, imageCollection]);
+  }, [person, images]);
 
   const [fave, setFave] = useState(false);
 
@@ -48,10 +47,10 @@ function PersonInfo({
   };
 
   const userPictures =
-    imageCollection !== null ? (
-      imageCollection.images.map((imgObj) => (
+    images.length > 0 ? (
+      images.map((image) => (
         <Styles.StyledPic
-          src={`http://localhost:5000/uploads${imgObj.filePath}`}
+          src={`http://localhost:5000/uploads${image.filePath}`}
           alt="user"
           onClick={() => showForm(null, 'FileUpload')}
         />
@@ -76,7 +75,6 @@ function PersonInfo({
         <Styles.StyledContainer>
           <Styles.StyledSection style={{ paddingTop: '2rem', marginTop: '0' }}>
             {userPictures}
-            <button onClick={getImage}>get user pic</button>
             <Styles.StyledName>
               {person.fName} {person.lName}
             </Styles.StyledName>
@@ -158,14 +156,13 @@ function PersonInfo({
 const mapStateToProps = (state) => {
   return {
     favorite: state.people.favorite,
-    imageCollection: state.image,
+    images: state.uploads.images,
     person: state.people.person,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getImage: () => dispatch(getImage()),
     favoritePerson: (personId) => dispatch(favoritePerson(personId)),
     getPerson: (personId) => dispatch(getPerson(personId)),
     deletePerson: (personId) => dispatch(deletePerson(personId)),
