@@ -41,9 +41,9 @@ function PersonItem({
 
   const userPictures =
     person.images.length > 0 ? (
-      person.images.map((image) => (
+      person.images.map((img) => (
         <Styles.StyledPic
-          src={`http://localhost:5000/uploads${image.filePath}`}
+          src={`http://localhost:5000/uploads${img.filePath}`}
           alt="user"
           // onClick={() => showForm(null, 'FileUpload')}
         />

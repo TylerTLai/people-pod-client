@@ -4,7 +4,7 @@ import { ADD_GROUP, GET_GROUPS, GET_GROUP, GROUPS_ERROR } from './groupTypes';
 // Add one or more group(s)
 export const addGroup = (newGroup) => async (dispatch) => {
   try {
-    console.log('from addGroup what is newGroup ', newGroup);
+    // console.log('from addGroup what is newGroup ', newGroup);
 
     // newGroup is an array of objects.
     const res = await axios.post(

@@ -58,16 +58,16 @@ export const getPeople = (groupId) => async (dispatch) => {
 };
 
 // Add a person
-export const addPerson = (person, group, image) => async (dispatch) => {
+export const addPerson = (person, group, images) => async (dispatch) => {
 
   try {
-    const res = await axios.post('/api/people/add', {
+    const res = await axios.post('http://localhost:5000/api/people/add', {
       person,
       group,
-      image
+      images
     });
 
-    console.log('what is the server res ', res.data);
+    // console.log('what is the server res ', res.data);
 
     dispatch({
       type: ADD_PERSON,

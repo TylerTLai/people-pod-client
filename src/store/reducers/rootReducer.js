@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 import group from './GroupReducer';
-import uploads from './UploadsReducer';
+import image from './ImageReducer';
 import people from './PeopleReducer';
 
 export default combineReducers({
   group,
-  uploads,
+  image,
   people,
 });
