@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import AsyncCreatableSelect from 'react-select/async-creatable';
-import { connect } from 'react-redux';
+import { useDropzone } from 'react-dropzone';
+import { XCircle } from 'react-feather';
 import { useForm } from 'react-hook-form';
-import { XCircle, Upload } from 'react-feather';
+import { connect } from 'react-redux';
+import AsyncCreatableSelect from 'react-select/async-creatable';
 
 import * as Styles from './AddPersonFormStyles';
 import { addGroup } from '../../store/actions/groupActions';
 import { addImage } from '../../store/actions/imageActions';
 import { addPerson, updatePerson } from '../../store/actions/personActions';
-import { StyledButton } from '../../styles/Button/Button';
 import { getOptions } from '../../utils/AddPersonFormUtils';
+import { StyledButton } from '../../styles/Button/Button';
 
 function AddPersonForm({
   addImage,
@@ -44,15 +45,49 @@ function AddPersonForm({
   const [formPerson, setFormPerson] = useState(person);
   const [personId, setPersonId] = useState('');
   const [updateInfo, setUpdateInfo] = useState(false);
-  const [selectedFile, setSelectedFile] = useState(null);
+  const [files, setFiles] = useState([]);
 
-  const handleGroupChange = (inputValue) => {
-    console.log('what is inputValue', inputValue);
-    setFormGroup(inputValue !== null ? inputValue : []);
+  const {
+    getRootProps,
+    getInputProps,
+    isDragActive,
+    isDragAccept,
+    isDragReject,
+  } = useDropzone({
+    maxFiles: 3,
+    accept: 'image/*',
+    onDrop: (acceptedFiles) => {
+      setFiles(
+        acceptedFiles.map((file) =>
+          Object.assign(file, { preview: URL.createObjectURL(file) })
+        )
+      );
+    },
+  });
+
+  const handleDelete = (file) => {
+    const newFiles = [...files];
+    newFiles.splice(file, 1);
+    setFiles(newFiles);
   };
 
-  const handlePictureChange = (e) => {
-    setSelectedFile((prevState) => e.target.files);
+  const thumbs = files.map((file, index) => (
+    <>
+      <div style={Styles.thumb} key={file.name}>
+        <XCircle
+          size={15}
+          onClick={(index) => handleDelete(index)}
+          style={Styles.featherIconXCircleStyles}
+        />
+        <div style={Styles.thumbInner}>
+          <img src={file.preview} style={Styles.img} alt="thumbnail" />
+        </div>
+      </div>
+    </>
+  ));
+
+  const handleGroupChange = (inputValue) => {
+    setFormGroup(inputValue !== null ? inputValue : []);
   };
 
   const { register, handleSubmit } = useForm();
@@ -60,10 +95,11 @@ function AddPersonForm({
   const onSubmit = async (personInfo, e) => {
     //  Get formData
     const formData = new FormData();
-    for (const file of selectedFile) {
-      formData.append('picture', file);
-    }
 
+    for (const img of files) {
+      formData.append('picture', img);
+    }
+    
     if (updateInfo) {
       updatePerson(personInfo, formGroup, personId);
       addGroup(formGroup);
@@ -100,25 +136,28 @@ function AddPersonForm({
         style={Styles.featherIconXCircleStyles}
       />
       <h2>Add new person</h2>
-      <Styles.StyledForm onSubmit={handleSubmit(onSubmit)} autoComplete="off">
+      <Styles.StyledForm
+        onSubmit={handleSubmit(onSubmit)}
+        autoComplete="off"
+        encType="multipart/form-data"
+      >
         <Styles.StyledSectionContainer>
           <section>
             <h3 style={{ marginTop: 0, marginBottom: '2rem' }}>
-              Select a picture
+              Upload a picture
             </h3>
-            <Styles.StyledLabel htmlFor="picture" placeholder="Add picture">
-              <Upload size={16} style={Styles.featherIconUploadStyles} />
-              <Styles.StyledButtonText>
-                Choose a picture
-              </Styles.StyledButtonText>
-            </Styles.StyledLabel>
-            <Styles.StyledUploadInput
-              type="file"
-              name="picture"
-              multiple
-              id="picture"
-              onChange={handlePictureChange}
-            />
+            <Styles.Container
+              {...getRootProps({ isDragActive, isDragAccept, isDragReject })}
+            >
+              <input {...getInputProps()} type="file" name="picture" multiple />
+              <p>
+                Drag and drop some pictures here, or click in this box to select
+                pictures (maximum of 3 pictures).
+              </p>
+            </Styles.Container>
+            <br />
+
+            <div>{thumbs}</div>
           </section>
           <section>
             <h3>Full Name</h3>
