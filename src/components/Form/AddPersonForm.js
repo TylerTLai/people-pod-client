@@ -108,12 +108,18 @@ function AddPersonForm({
       formData.append('picture', img);
     }
 
+    formData.append('fName', personInfo.fName);
+    formData.append('lName', personInfo.lName);
+    formData.append('note', personInfo.note);
+
     if (updateInfo) {
-      updatePerson(personInfo, formGroup, personId);
+      updatePerson(formData);
+      // updatePerson(personInfo, formGroup, personId);
       addGroup(formGroup);
       addImage(formData, personId);
     } else {
       addPerson(personInfo, formGroup, formData);
+      // addPerson(formData);
       addGroup(formGroup);
       addImage(formData);
     }

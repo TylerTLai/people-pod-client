@@ -58,32 +58,27 @@ export const getPeople = (groupId) => async (dispatch) => {
 };
 
 // Add a person
-export const addPerson = (person, group, images) => async (dispatch) => {
-  console.log('addPerson actions >>> ', person);
-  console.log('addPerson actions >>> ', group);
-  console.log(
-    'addPerson actions images >>> ',
-    JSON.stringify(Object.fromEntries(images))
-  );
+export const addPerson = (formData) => async (dispatch) => {
+  console.log('formData >>>', formData);
+
+  // console.log('addPerson actions person >>> ', person);
+  // console.log('addPerson actions group >>> ', group);
 
   try {
     // const res = await axios.post('/api/people/add', { person, group, images });
 
-    const res = await axios.post('/api/people/add', images, {
+    const res = await axios.post('/api/people/add', formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
-      data: {
-        person,
-        group,
-      },
     });
+
     // console.log('what is the server res ', res.data);
 
-    dispatch({
-      type: ADD_PERSON,
-      payload: res.data,
-    });
+    // dispatch({
+    //   type: ADD_PERSON,
+    //   payload: res.data,
+    // });
   } catch (err) {
     dispatch({
       type: PERSON_ERROR,
