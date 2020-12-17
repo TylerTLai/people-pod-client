@@ -65,18 +65,12 @@ function AddPersonForm({
     },
   });
 
-  const handleDelete = (file) => {
-    const newFiles = [...files];
-    newFiles.splice(file, 1);
-    setFiles(newFiles);
-  };
-
-  const thumbs = files.map((file, index) => (
+  const thumbs = files.map((file) => (
     <>
       <div style={Styles.thumb} key={file.name}>
         <XCircle
           size={15}
-          onClick={(index) => handleDelete(index)}
+          onClick={(index) => handleImageDelete(index)}
           style={Styles.featherIconXCircleStyles}
         />
         <div style={Styles.thumbInner}>
@@ -86,6 +80,21 @@ function AddPersonForm({
     </>
   ));
 
+  const handleClose = () => {
+    setModalInfo((prevState) => ({ ...prevState, show: false }));
+  };
+
+  const handleImageDelete = (file) => {
+    const newFiles = [...files];
+    newFiles.splice(file, 1);
+    setFiles(newFiles);
+  };
+
+  const handleFieldChange = (e) => {
+    const { name, value } = e.target;
+    setFormPerson((prevState) => ({ ...prevState, [name]: value }));
+  };
+
   const handleGroupChange = (inputValue) => {
     setFormGroup(inputValue !== null ? inputValue : []);
   };
@@ -93,13 +102,12 @@ function AddPersonForm({
   const { register, handleSubmit } = useForm();
 
   const onSubmit = async (personInfo, e) => {
-    //  Get formData
     const formData = new FormData();
 
     for (const img of files) {
       formData.append('picture', img);
     }
-    
+
     if (updateInfo) {
       updatePerson(personInfo, formGroup, personId);
       addGroup(formGroup);
@@ -117,15 +125,6 @@ function AddPersonForm({
       show: false,
       modal: 'AddPerson',
     }));
-  };
-
-  const handleClose = () => {
-    setModalInfo((prevState) => ({ ...prevState, show: false }));
-  };
-
-  const handleFieldChange = (e) => {
-    const { name, value } = e.target;
-    setFormPerson((prevState) => ({ ...prevState, [name]: value }));
   };
 
   return (

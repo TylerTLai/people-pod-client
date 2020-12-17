@@ -67,13 +67,13 @@ export const addPerson = (person, group, images) => async (dispatch) => {
   );
 
   try {
-    // const res = await axios.post('/api/people/add', { person, group });
+    // const res = await axios.post('/api/people/add', { person, group, images });
 
     const res = await axios.post('/api/people/add', images, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
-      params: {
+      data: {
         person,
         group,
       },
