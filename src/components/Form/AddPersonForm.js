@@ -105,7 +105,9 @@ function AddPersonForm({
     const formData = new FormData();
 
     for (const img of files) {
-      formData.append('picture', img);
+      console.log('img>>', img);
+      formData.append('files', img);
+      // console.log(formData.getAll('files'));
     }
 
     formData.append('fName', personInfo.fName);
@@ -118,8 +120,8 @@ function AddPersonForm({
       addGroup(formGroup);
       addImage(formData, personId);
     } else {
-      addPerson(personInfo, formGroup, formData);
-      // addPerson(formData);
+      // addPerson(personInfo, formGroup, formData);
+      addPerson(formData);
       addGroup(formGroup);
       addImage(formData);
     }

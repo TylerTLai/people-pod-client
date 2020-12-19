@@ -59,7 +59,13 @@ export const getPeople = (groupId) => async (dispatch) => {
 
 // Add a person
 export const addPerson = (formData) => async (dispatch) => {
+  
   console.log('formData >>>', formData);
+
+   for (var pair of formData.entries()) {
+     console.log(pair[0] + ', ' + pair[1]);
+   }
+
 
   // console.log('addPerson actions person >>> ', person);
   // console.log('addPerson actions group >>> ', group);
