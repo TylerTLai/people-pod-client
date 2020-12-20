@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Heart, Edit, Trash } from 'react-feather';
-import axios from 'axios';
 
 import userPic from '../../assets/user-placeholder.jpg';
 
@@ -23,28 +22,21 @@ function PersonInfo({
 }) {
   useEffect(() => {
     if (person !== null) {
+      // Set favorite
       const alreadyFaved = person.group.some(
         (el) => el.groupName === 'Favorite'
       );
       setFave(alreadyFaved);
+
+      // Set pictures
+      if (person.images !== null) {
+        setUserPics(person.images);
+      }
     }
   }, [person]);
 
-  const getImages = async () => {
-    const res = await axios.get('/api/images/');
-    setImages(res.data.images);
-  };
-
-  // useEffect(() => {
-  //   getImages();
-  // }, [person]);
-
   const [fave, setFave] = useState(false);
-  const [images, setImages] = useState([]);
-
-  const getPics = () => {
-    getImages();
-  };
+  const [userPics, setUserPics] = useState([]);
 
   const handleFavorite = () => {
     favoritePerson(person._id);
@@ -59,24 +51,25 @@ function PersonInfo({
     }));
   };
 
-  console.log('images >>> ', images);
-
-  const userPictures =
-    images.length > 0 ? (
-      images.map((image) => (
+  const userPictures = person.images.map((img) => {
+    if (img.filePath === '') {
+      return (
         <Styles.StyledPic
-          src={`http://localhost:5000/uploads${image.filePath}`}
+          src={userPic}
           alt="user"
-          onClick={() => showForm(null, 'FileUpload')}
+          // onClick={() => showForm(null, 'FileUpload')}
         />
-      ))
-    ) : (
-      <Styles.StyledPic
-        src={userPic}
-        alt="user"
-        onClick={() => showForm(null, 'FileUpload')}
-      />
-    );
+      );
+    } else {
+      return (
+        <Styles.StyledPic
+          src={`http://localhost:5000/${img.filePath}`}
+          alt="user"
+          // onClick={() => showForm(null, 'FileUpload')}
+        />
+      );
+    }
+  });
 
   return (
     <>
@@ -90,7 +83,6 @@ function PersonInfo({
         <Styles.StyledContainer>
           <Styles.StyledSection style={{ paddingTop: '2rem', marginTop: '0' }}>
             {userPictures}
-            <button onClick={getPics}>get user pic</button>
             <Styles.StyledName>
               {person.fName} {person.lName}
             </Styles.StyledName>
@@ -172,6 +164,7 @@ function PersonInfo({
 const mapStateToProps = (state) => {
   return {
     favorite: state.people.favorite,
+    // images: state.uploads.images,
     person: state.people.person,
   };
 };

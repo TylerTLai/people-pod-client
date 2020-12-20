@@ -39,13 +39,31 @@ function PersonItem({
     setFave(favorite);
   };
 
+  const userPictures = person.images.map((img) => {
+    if (img.filePath === '') {
+      return (
+        <Styles.StyledPic
+          src={userPic}
+          alt="user"
+          // onClick={() => showForm(null, 'FileUpload')}
+        />
+      );
+    } else {
+      return (
+        <Styles.StyledPic
+          src={`http://localhost:5000/${img.filePath}`}
+          alt="user"
+          // onClick={() => showForm(null, 'FileUpload')}
+        />
+      );
+    }
+  });
+
   return (
     <Styles.StyledLink to={'/person/' + person._id}>
       <Styles.StyledContainer onClick={() => getPerson(person._id)}>
         <Styles.StyledContentArea>
-          <div>
-            <Styles.StyledPic src={userPic} />
-          </div>
+          <div>{userPictures}</div>
           <div>
             <Styles.StyledName>{`${person.fName} ${person.lName}`}</Styles.StyledName>
             <Styles.StyledLocation>Location</Styles.StyledLocation>

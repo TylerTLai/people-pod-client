@@ -12,7 +12,7 @@ export const modalVariants = {
     transition: { stiffness: 300 },
   },
   visiblePerson: {
-    y: '20vh',
+    y: '15vh',
     scale: 1,
     opacity: 1,
     transition: {

@@ -1,4 +1,5 @@
 import axios from 'axios';
+
 import {
   ADD_PERSON,
   DELETE_PERSON,
@@ -57,17 +58,22 @@ export const getPeople = (groupId) => async (dispatch) => {
 };
 
 // Add a person
-export const addPerson = (person, group) => async (dispatch) => {
+export const addPerson = (formData) => async (dispatch) => {
+  
   try {
-    const res = await axios.post('/api/people/add', {
-      person,
-      group,
+    const res = await axios.post('/api/people/add', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
     });
+
+    // console.log('what is the server res ', res.data);
 
     dispatch({
       type: ADD_PERSON,
       payload: res.data,
     });
+    
   } catch (err) {
     dispatch({
       type: PERSON_ERROR,
