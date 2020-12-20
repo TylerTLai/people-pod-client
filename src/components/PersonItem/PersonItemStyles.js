@@ -24,6 +24,14 @@ export const StyledContainer = styled(motion.div)`
     'buttonsArea buttonsArea';
 `;
 
+export const StyledPicSection = styled.section`
+  /* position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center; */
+`;
+
+
 export const StyledPic = styled.img`
   margin: 0 auto;
   border-radius: 5px;

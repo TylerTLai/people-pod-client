@@ -29,6 +29,13 @@ export const StyledTitleSection = styled.section`
 
 export const StyledTitle = styled.h2``;
 
+export const StyledPicSection = styled.section`
+  /* position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center; */
+`;
+
 export const StyledPic = styled.img`
   width: 35%;
   min-width: 120px;
@@ -37,7 +44,7 @@ export const StyledPic = styled.img`
   margin: auto;
   border-radius: 100%;
   cursor: pointer;
-  /* box-shadow: 0px 19px 18px -10px rgba(0, 0, 0, 0.3); */
+  box-shadow: 0px 19px 18px -10px rgba(0, 0, 0, 0.3);
 `;
 
 export const StyledName = styled.h2`
@@ -136,4 +143,22 @@ export const featherIconEditStyles = {
 
 export const featherIconDeleteStyles = {
   color: `${colors.spunPearl}`,
+};
+
+export const featherIconLeftArrow = {
+  left: "32px",
+  fontSize: "3rem",
+  color: "#000",
+  zIndex: "10",
+  cursor: "pointer",
+  userSelect: "none"
+}
+
+export const featherIconRightArrow = {
+  right: '32px',
+  fontSize: '3rem',
+  color: '#000',
+  zIndex: '10',
+  cursor: 'pointer',
+  userSelect: 'none',
 };

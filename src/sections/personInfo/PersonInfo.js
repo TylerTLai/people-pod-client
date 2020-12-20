@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Heart, Edit, Trash } from 'react-feather';
+import {
+  Heart,
+  Edit,
+  Trash,
+  ArrowLeftCircle,
+  ArrowRightCircle,
+} from 'react-feather';
 
 import userPic from '../../assets/user-placeholder.jpg';
 
@@ -37,6 +43,16 @@ function PersonInfo({
 
   const [fave, setFave] = useState(false);
   const [userPics, setUserPics] = useState([]);
+  const [current, setCurrent] = useState(0);
+  const length = userPics.length;
+
+  const nextSlide = () => {
+    setCurrent(current === length - 1 ? 0 : current + 1);
+  };
+
+  const prevSlide = () => {
+    setCurrent(current === 0 ? length - 1 : current - 1);
+  };
 
   const handleFavorite = () => {
     favoritePerson(person._id);
@@ -51,7 +67,7 @@ function PersonInfo({
     }));
   };
 
-  const userPictures = person.images.map((img) => {
+  const userPictures = userPics.map((img, index) => {
     if (img.filePath === '') {
       return (
         <Styles.StyledPic
@@ -62,11 +78,21 @@ function PersonInfo({
       );
     } else {
       return (
-        <Styles.StyledPic
-          src={`http://localhost:5000/${img.filePath}`}
-          alt="user"
-          // onClick={() => showForm(null, 'FileUpload')}
-        />
+        <Styles.StyledPicSection>
+          <div
+            className={index === current ? 'slide active' : 'slide'}
+            key={index}
+          >
+            {index === current && (
+              <Styles.StyledPic
+                src={`http://localhost:5000/${img.filePath}`}
+                alt="user"
+                // className="image"
+                // onClick={() => showForm(null, 'FileUpload')}
+              />
+            )}
+          </div>
+        </Styles.StyledPicSection>
       );
     }
   });
@@ -82,6 +108,21 @@ function PersonInfo({
       ) : (
         <Styles.StyledContainer>
           <Styles.StyledSection style={{ paddingTop: '2rem', marginTop: '0' }}>
+            {userPics.length > 1 ? (
+              <>
+                <p>Change picture</p>
+                <ArrowLeftCircle
+                  size={20}
+                  onClick={prevSlide}
+                  style={Styles.featherIconLeftArrow}
+                />
+                <ArrowRightCircle
+                  size={20}
+                  onClick={nextSlide}
+                  style={Styles.featherIconRightArrow}
+                />
+              </>
+            ) : null}
             {userPictures}
             <Styles.StyledName>
               {person.fName} {person.lName}
