@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useDropzone } from 'react-dropzone';
-import { XCircle } from 'react-feather';
-import { useForm } from 'react-hook-form';
-import { connect } from 'react-redux';
 import AsyncCreatableSelect from 'react-select/async-creatable';
+import { connect } from 'react-redux';
+import { useDropzone } from 'react-dropzone';
+import { useForm } from 'react-hook-form';
+import { XCircle } from 'react-feather';
 
 import * as Styles from './AddPersonFormStyles';
 import { addGroup } from '../../store/actions/groupActions';
@@ -31,8 +31,8 @@ function AddPersonForm({
       setPersonId(person._id);
       // take the person prop and set it to a local state as formPerson.
       setFormPerson(person);
-      // take the group prop and set it to a local state as formGroup.
-      setFormGroup(
+      // take the group prop and set it to a local state as formGroups.
+      setFormGroups(
         person.group.map((groupObj) => ({
           label: groupObj.groupName,
           value: groupObj.groupName,
@@ -41,7 +41,7 @@ function AddPersonForm({
     }
   }, [person]);
 
-  const [formGroup, setFormGroup] = useState([]);
+  const [formGroups, setFormGroups] = useState([]);
   const [formPerson, setFormPerson] = useState(person);
   const [personId, setPersonId] = useState('');
   const [updateInfo, setUpdateInfo] = useState(false);
@@ -96,7 +96,7 @@ function AddPersonForm({
   };
 
   const handleGroupChange = (inputValue) => {
-    setFormGroup(inputValue !== null ? inputValue : []);
+    setFormGroups(inputValue !== null ? inputValue : []);
   };
 
   const { register, handleSubmit } = useForm();
@@ -105,25 +105,29 @@ function AddPersonForm({
     const formData = new FormData();
 
     for (const img of files) {
-      console.log('img>>', img);
-      formData.append('files', img);
-      // console.log(formData.getAll('files'));
+      formData.append('picture', img);
     }
 
     formData.append('fName', personInfo.fName);
     formData.append('lName', personInfo.lName);
     formData.append('note', personInfo.note);
 
+    formGroups.forEach((groupObj) => {
+      delete groupObj.label;
+      groupObj.groupName = groupObj.value;
+      delete groupObj.value;
+    });
+
+    formData.append('groupsJSON', JSON.stringify(formGroups));
+
     if (updateInfo) {
-      updatePerson(formData);
-      // updatePerson(personInfo, formGroup, personId);
-      addGroup(formGroup);
-      addImage(formData, personId);
+      // updatePerson(formData, personId);
+      addGroup(formGroups);
+      // addImage(formData, personId);
     } else {
-      // addPerson(personInfo, formGroup, formData);
       addPerson(formData);
-      addGroup(formGroup);
-      addImage(formData);
+      addGroup(formGroups);
+      // addImage(formData);
     }
 
     e.target.reset();
@@ -158,8 +162,8 @@ function AddPersonForm({
             >
               <input {...getInputProps()} type="file" name="picture" multiple />
               <p>
-                Drag and drop some pictures here, or click in this box to select
-                pictures (maximum of 3 pictures).
+                Drag and drop pictures here or click in this box to select
+                pictures (maximum of 3).
               </p>
             </Styles.Container>
             <br />
@@ -198,7 +202,7 @@ function AddPersonForm({
             defaultOptions
             loadOptions={getOptions}
             styles={Styles.customStyles}
-            value={formGroup ? formGroup : undefined}
+            value={formGroups ? formGroups : undefined}
           />
         </section>
 

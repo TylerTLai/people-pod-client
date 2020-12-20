@@ -39,22 +39,25 @@ function PersonItem({
     setFave(favorite);
   };
 
-  const userPictures =
-    person.images.length > 0 ? (
-      person.images.map((img) => (
+  const userPictures = person.images.map((img) => {
+    if (img.filePath === '') {
+      return (
         <Styles.StyledPic
-          src={`http://localhost:5000/uploads${img.filePath}`}
+          src={userPic}
           alt="user"
           // onClick={() => showForm(null, 'FileUpload')}
         />
-      ))
-    ) : (
-      <Styles.StyledPic
-        src={userPic}
-        alt="user"
-        // onClick={() => showForm(null, 'FileUpload')}
-      />
-    );
+      );
+    } else {
+      return (
+        <Styles.StyledPic
+          src={`http://localhost:5000/${img.filePath}`}
+          alt="user"
+          // onClick={() => showForm(null, 'FileUpload')}
+        />
+      );
+    }
+  });
 
   return (
     <Styles.StyledLink to={'/person/' + person._id}>

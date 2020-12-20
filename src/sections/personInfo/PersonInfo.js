@@ -51,22 +51,25 @@ function PersonInfo({
     }));
   };
 
-  const userPictures =
-    userPics.length > 0 ? (
-      userPics.map((image) => (
+  const userPictures = person.images.map((img) => {
+    if (img.filePath === '') {
+      return (
         <Styles.StyledPic
-          src={`http://localhost:5000/uploads${image.filePath}`}
+          src={userPic}
           alt="user"
-          onClick={() => showForm(null, 'FileUpload')}
+          // onClick={() => showForm(null, 'FileUpload')}
         />
-      ))
-    ) : (
-      <Styles.StyledPic
-        src={userPic}
-        alt="user"
-        onClick={() => showForm(null, 'FileUpload')}
-      />
-    );
+      );
+    } else {
+      return (
+        <Styles.StyledPic
+          src={`http://localhost:5000/${img.filePath}`}
+          alt="user"
+          // onClick={() => showForm(null, 'FileUpload')}
+        />
+      );
+    }
+  });
 
   return (
     <>
@@ -79,11 +82,6 @@ function PersonInfo({
       ) : (
         <Styles.StyledContainer>
           <Styles.StyledSection style={{ paddingTop: '2rem', marginTop: '0' }}>
-            {/* <Styles.StyledPic
-              src={userPic}
-              alt="user"
-              onClick={() => showForm(null, 'FileUpload')}
-            /> */}
             {userPictures}
             <Styles.StyledName>
               {person.fName} {person.lName}
